@@ -42,11 +42,11 @@ GithubにZenn連携用リポジトリを作成します。空のレポジトリ�
 :::message
 Githubの機能（issue,pull requestなど）を、積極的に活用する予定のある人は、「リポジトリ名」で内容が判断できる方が良いと思います。例えば、プルリクエストで編集リクエストをする場合などです。この時に「zenn-contents」などの、他の人も使っているリポジトリ名だと、同名のレポジトリ名が並んで使いづらい可能性もあるからです。例えば「ユーザー名-zenn-contents」や「公開状態-zenn-contents」などが良いと思います。ここでは「public-zenn-docs」としておきました。
 :::
-![](https://storage.googleapis.com/zenn-user-upload/0d7aa44a091b-20230428.png =600x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-37-14.png =600x)
 
 ### ②GithubにZenn連携用リポジトリを作成する
 Zennにログインして、[GitHubからのデプロイ](https://zenn.dev/dashboard/deploys) を開いて「リポジトリを連携する」を押します。
-![](https://storage.googleapis.com/zenn-user-upload/87050f6876e8-20230428.png)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-38-43.png)
 「リポジトリを連携」を選んで、GithubGitHubの認証画面に進みましょう。そこで「Only select repositories」を選択して、先ほど作成したレポジトリを選択してください。2つ目のリポジトリを登録する際は、再度「Only select repositories」を選択して、リポジトリを選択してください。最後に「インストール」を押しましょう。
 :::message
 連携できるリポジトリは最大2つです。3つ以上選択されていると連携が失敗します。これは安全のための意図的な仕様とのことです。後述する有料出版する人には重要な要素となります。
@@ -54,14 +54,14 @@ Zennにログインして、[GitHubからのデプロイ](https://zenn.dev/dashb
 :::message alert
 有料出版をする人は管理するリポジトリに注意しましょう。有料販売するまではプライベートリポジトリにしておいた方が良いからです。パブリックリポジトリとプライベートリポジトリをあらかじめ用意しておいて、執筆中はプライベートリポジトリで作成して、執筆完了後にパブリックリポジトリに移植するなどの対処が必要そうです。もしくは、リポジトリを「公開と非公開」で必要に応じて切り替えることでしょうか。他の公開すべきものまで非公開になってしまうので現実的ではありませんが...。
 :::
-![](https://storage.googleapis.com/zenn-user-upload/ee9a04ff37e0-20230428.png =600x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-40-00.png =600x)
 これでGithubとの連携は完了です。
 
 ### ③同期するブランチ名を確認・変更する
 [リポジトリ設定タブ](https://zenn.dev/dashboard/deploys?tab=repo_settings) から、同期したいブランチ名を確認・変更ができます。「設定を変更」から変更してください。なお、ここで登録されている名前のブランチに変更があったときに自動でデプロイが行われます。
-![](https://storage.googleapis.com/zenn-user-upload/1152ae50edea-20230428.png)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-41-10.png)
 これでファイルを push すれば、投稿ができるようになっているはずです。一方で、ZennのWebページからは、投稿ができなくなる点に注意してください。
-![](https://storage.googleapis.com/zenn-user-upload/0dc2c39cbe5f-20230428.png)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-42-03.png)
 ただし、画像のアップロードはこの画面からできます。記事に埋め込めるリンクが簡単に取得できますので覚えておくと良いでしょう。
 
 # Zenn CLI で記事を作成する環境を作る
@@ -70,7 +70,7 @@ https://zenn.dev/zenn/articles/install-zenn-cli
 
 ### ①GitHub上のリポジトリをローカルへのクローンする
 GitHub上で作成したZennコンテンツ用のリポジトリをローカルにクローンします。GitHub上からクローンしたいリポジトリのページに行ってコピーボタンをクリックします。
-![](https://storage.googleapis.com/zenn-user-upload/4ce97c8aa721-20230428.png)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-46-53.png)
 ターミナルでローカルリポジトリを作成するフォルダに移動して以下のコマンドを実行します。
 ```
 $ git clone https://github.com/************.git
@@ -103,7 +103,7 @@ $ npm install zenn-cli@latest # zenn-cliをアップデート
 $ npx zenn init
 ```
 下記のようになっていれば成功です。
-![](https://storage.googleapis.com/zenn-user-upload/3df346b43c28-20230428.png =400x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-48-14.png =400x)
 これで Zenn CLI で記事を作成する準備は完了です。
 
 # Githubを使用して記事を作成する
@@ -126,12 +126,12 @@ $ npx zenn new:article
 末尾に年月日などを付けるのが無難でしょう。
 :::
 下記のように新しい記事が出来ていれば成功です。
-![](https://storage.googleapis.com/zenn-user-upload/23f8f626dfd7-20230501.png =500x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-49-27.png =500x)
 作成した記事（github-zenn-linkage-20230501.md）を開くと、中身は次のようになっています。
-![](https://storage.googleapis.com/zenn-user-upload/a8efe66e17a2-20230501.png =550x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-50-31.png =550x)
 ここに記事のタイトル（title）やトピックス（topics）などを yaml形式 で指定していきます。
 試しに下記のように書き換えて保存してみましょう。
-![](https://storage.googleapis.com/zenn-user-upload/1b0f440417e5-20230501.png =550x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-51-35.png =550x)
 
 ### ②記事をプレビューする
 それでは、記事を表示してみましょう。次の`npx`コマンドを実行します。
@@ -142,12 +142,12 @@ $ 👀 Preview: http://localhost:8000
 上記のURLをコピーしてブラウザに貼り付けて読み込んでください。
 もしくは、下記のリンクカードからアクセスしてみましょう。
 http://localhost:8000/
-![](https://storage.googleapis.com/zenn-user-upload/a52e8abaf26d-20230429.png =600x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-54-04.png =600x)
 :::message alert
 上記のURLでアクセスされるのは、記事ではなく「 Zenn Editor 」という専用のページです。
 記事を表示するには、赤枠で囲った記事のタイトルをクリックしてください。
 :::
-![](https://storage.googleapis.com/zenn-user-upload/ac10fe500799-20230501.png =600x)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-55-06.png =600x)
 :::message
 ポートが被ってしまった場合などは、`$ npx zenn preview --port 8888` というように、オプションを付けて起動することにより、ポート番号を変えていくこともできます。
 :::
@@ -162,7 +162,7 @@ $ git commit -m "first commit" # コミットする
 $ git push -u origin main # pushする
 ```
 下記のようにGithubにファイルなどができて、共有された状態になりました。
-![](https://storage.googleapis.com/zenn-user-upload/af6b9ea9af0c-20230501.png)
+![](/images/github-zenn-linkage-20230501/2023-05-12-13-56-39.png)
 これで記事をGithubで管理することができました。
 作業はこれで完了です。
 
