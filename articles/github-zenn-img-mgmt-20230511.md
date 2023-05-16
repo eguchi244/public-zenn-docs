@@ -200,7 +200,13 @@ https://chiilabo.com/2020-09/macos-screenshot-default-name-change/
 :::
 
 ### ③記事に画像をコピー貼り付けする
-スクリーンショット画像をコピーしたら`CTRL(cmd)+ALT(option)+V`を押します。
+まずはスクリーンショット画像をクリップボードに保存する形でコピーしてください。
+Windowsはデフォルトでクリップボードにコピーされますが、Macは下記の操作が必要です。
+
+- `Command＋Control＋Shift＋3` → 全画面をクリップボードにコピー
+- `Command＋Control＋Shift＋4` → 選択範囲をクリップボードにコピー
+
+その次にエディターで貼り付け`CTRL(cmd)+ALT(option)+V`を押します。
 以下のような画像リンクがmarkdown形式で作成されます。
 ```
 ![](/images/blog-slug-name/2023-05-11-15-43-36.png)
