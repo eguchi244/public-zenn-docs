@@ -6,62 +6,64 @@ topics: ["SQL", "Database", "PostgreSQL", "macOS"]
 published: true # 公開に指定する
 ---
 # はじめに
-この記事では **PostgreSQL** をMacでインストールする方法を紹介します。ここでは「インストーラーからインストールする」と「Homebrewからインストールする」を扱います。コマンドに慣れてる人なら圧倒的に Homebrew を使うのが楽です。
+この記事では **PostgreSQL** をMacでインストールする方法を紹介します。
+
+ここでは「インストーラーからインストールする」と「Homebrewからインストールする」を扱います。コマンドに慣れてる人なら圧倒的に Homebrew を使うのが楽です。
 
 # インストーラーからインストールする
 下記の手順に沿ってインストールを実施してください。
 
-#### 公式ページにアクセスする
+### 公式ページにアクセスする
 下記から公式ページのダウンロードページにアクセスしてください。
 https://www.postgresql.org/download/
 
-#### インストールするPCのOSを選択する（MacOSを選択する）
+### インストールするPCのOSを選択する（MacOSを選択する）
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-03-00.png)
 
-#### Download the installer をクリックする
+### Download the installer をクリックする
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-07-46.png)
 
-#### PostgreSQLのバージョンを選択する
+### PostgreSQLのバージョンを選択する
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-10-50.png)
 
-#### DMGファイル（postgresql-15.3-2-osx.dmg）をダブルクリックする
+### DMGファイル（postgresql-15.3-2-osx.dmg）をダブルクリックする
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-16-27.png =450x)
 
-#### postgresql-15.3-2-osx.app をアプリケーションにドロップする
+### postgresql-15.3-2-osx.app をアプリケーションにドロップする
 ドロップしたらダブルクリックして Macのパスワードを打ち込んで先に進んでください。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-21-22.png)
 
-#### セットアップ画面で「NEXT」をクリックする
+### セットアップ画面で「NEXT」をクリックする
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-25-57.png =500x)
 
-#### PostgreSQLの保存先を決める
+### PostgreSQLの保存先を決める
 デフォルトのままで「NEXT」をクリックしてください。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-28-44.png =500x)
 
-#### PostgreSQLと同時にインストールするコンポーネントを選択する
+### PostgreSQLと同時にインストールするコンポーネントを選択する
 デフォルトの全て選択された状態で「NEXT」をクリックしてください。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-30-51.png =500x)
 
-#### データを保存先を決める
+### データを保存先を決める
 デフォルトのまま「NEXT」をクリックしてください。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-32-48.png =500x)
 
-#### スーパーユーザのパスワードを設定する
+### スーパーユーザのパスワードを設定する
 デフォルトで `postgres` という名前で作成されます。なお、スーパーユーザは、データベース内のアクセス制限をすべて変更することができるユーザーアカウントです。今回はデフォルトの `postgres` のままで設定します。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-41-00.png =500x)
 
-#### ポート番号を決める
+### ポート番号を決める
 デフォルトの5432のままで「NEXT」をクリックしてください。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-43-41.png  =500x)
 
-#### ロケールを決める
+### ロケールを決める
 環境に応じて設定してくれるのでデフォルトの［Default locale］のままで「NEXT」をクリックしてください。
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-45-57.png =500x)
 
-#### 確認画面で「NEXT」をクリックする
+### 確認画面で「NEXT」をクリックする
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-47-31.png =500x)
 
-#### インストールを「NEXT」をクリックして開始する
+### インストールを「NEXT」をクリックして開始する
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-50-11.png =500x)
 
 セットアップが完了したのでFinishを押して終了してください。
@@ -72,8 +74,8 @@ Launch Stack Builderのチェックを入れて終了すると追加のツール
 
 これで「インストーラーからインストールする」は完了です。
 
-# Homebrewからインストールする
-#### Homebrewを確認してアップデートする
+## Homebrewからインストールする
+### Homebrewを確認してアップデートする
 ```js:Terminal
 $ brew --version
 $ brew update
@@ -83,12 +85,12 @@ $ brew cleanup # 不要な formulae を削除
 $ brew services list
 ```
 
-#### インストールできるpostgreSQLを確認する
+### インストールできるpostgreSQLを確認する
 ```js:Terminal
 $ brew search postgresql
 ```
 
-#### PostgreSQlをインストールする
+### PostgreSQlをインストールする
 ※バージョンを指定する場合は `@` 以降に確認したバージョンを記述する
 ```js:Terminal
 $ brew install postgresql
@@ -110,31 +112,31 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/maste
 ```
 :::
 
-#### バージョンの確認をする
+### バージョンの確認をする
 ```js:Terminal
 $ psql --version
 ```
 
-#### pgAdminをインストールする（任意）
+### pgAdminをインストールする（任意）
 pgAdminは、PostgreSQLを視覚的に操作するためのツールです。
 ```js:Terminal
 $ brew cask install pgadmin4
 ```
 
-#### PostgreSQLを初期化する
+### PostgreSQLを初期化する
 PostgreSQLは、最初に初期化する必要がある場合もあります。
 ```js:Terminal
 $ initdb /usr/local/var/postgres -E utf8
 ```
 
-#### PostgreSQLを起動する
+### PostgreSQLを起動する
 ```js:Terminal
 $ brew services start postgresql
 Warning: Formula postgresql was renamed to postgresql@14.
 ==> Successfully started `postgresql@14` (label: homebrew.mxcl.postgresql@14)
 ```
 
-#### データーベースの一覧を確認する
+### データーベースの一覧を確認する
 `Owner`は、データーベースにログインする時に使用します。
 ```js:Terminal
 $ psql -l
@@ -150,7 +152,7 @@ $ psql -l
             |           |          |         |       | =c/***
 ```
 
-#### データーベースに接続する
+### データーベースに接続する
 DBに接続するには `psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` を使用します。
 ```js:Terminal
 $ psql -h localhost -p 5432 -U **** -d postgres
@@ -165,7 +167,7 @@ $ psql -h localhost -p 5432 -U **** -d postgres
 
 ※ スーパーユーザーは、データベース内のアクセス制限をすべて変更することができます
 
-#### 接続後の動作確認をする
+### 接続後の動作確認をする
 いくつかのコマンドを使って動作を確認してみます。
 ①ログイン後のデーターベース一覧を表示する
 ```js:Terminal
@@ -177,7 +179,7 @@ $ \du
 ```
 問題なく表示されているようなら動作は問題ありません。
 
-#### データーベースの接続を終了する
+### データーベースの接続を終了する
 DBの接続を終了するには `\q` コマンドを使用します。
 ```js:Terminal
 $ \q
