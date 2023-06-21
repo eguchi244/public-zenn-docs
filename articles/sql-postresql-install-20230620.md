@@ -8,9 +8,10 @@ published: true # 公開に指定する
 # はじめに
 この記事では **PostgreSQL** をMacでインストールする方法を紹介します。
 
-ここでは「インストーラーからインストールする」と「Homebrewからインストールする」を扱います。コマンドに慣れてる人なら圧倒的に Homebrew を使うのが楽です。
+ここでは「DMGファイルからインストールする」と「Homebrewからインストールする」を扱います。コマンドに慣れてる人なら圧倒的に Homebrew を使うのが楽です。
 
-# インストーラーからインストールする
+
+# DMGファイルからインストールする
 下記の手順に沿ってインストールを実施してください。
 
 
@@ -75,7 +76,9 @@ Launch Stack Builderのチェックを入れて終了すると追加のツール
 
 これで「インストーラーからインストールする」は完了です。
 
+
 ## Homebrewからインストールする
+
 
 #### Homebrewを確認してアップデートする
 ```js:Terminal
@@ -119,18 +122,18 @@ $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/maste
 $ psql --version
 ```
 
-#### pgAdminをインストールする（任意）
-pgAdminは、PostgreSQLを視覚的に操作するためのツールです。
-```js:Terminal
-$ brew cask install pgadmin4
-```
-
 #### PostgreSQLを初期化する
 PostgreSQLは、最初に初期化する必要がある場合もあります。
 ```js:Terminal
 $ initdb /usr/local/var/postgres -E utf8
 ```
+これで「Homebrewからインストールする」は完了です。
 
+
+## PostgreSQLの動作確認をする
+ここでは「DBの起動の一連の流れ」を扱います。
+
+### DBの起動の一連の流れ
 #### PostgreSQLを起動する
 ```js:Terminal
 $ brew services start postgresql
@@ -146,18 +149,18 @@ $ psql -l
                                List of databases
     Name    |   Owner   | Encoding | Collate | Ctype |    Access privileges    
 ------------+-----------+----------+---------+-------+-------------------------
- example-db | ***       | UTF8     | C       | C     | 
  postgres   | ***       | UTF8     | C       | C     | 
  template0  | ***       | UTF8     | C       | C     | =c/***      +
             |           |          |         |       | ***=CTc/***
- template1  | ***       | UTF8     | C       | C     | ***=CTc/***+
-            |           |          |         |       | =c/***
+ template1  | ***       | UTF8     | C       | C     | =c/***      +
+            |           |          |         |       | ***=CTc/***
 ```
+※ Owner で使用されている名前は、DBに接続する時にロール名として使用します。
 
 #### データーベースに接続する
 DBに接続するには `psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` を使用します。
 ```js:Terminal
-$ psql -h localhost -p 5432 -U **** -d postgres
+$ psql -h localhost -p 5432 -U *** -d postgres
 ```
 デフォルトでは下記のように設定されている状態になっています。
 | 名称 | 設定値 | 備考 |
@@ -169,26 +172,62 @@ $ psql -h localhost -p 5432 -U **** -d postgres
 
 ※ スーパーユーザーは、データベース内のアクセス制限をすべて変更することができます
 
-#### 接続後の動作確認をする
-いくつかのコマンドを使って動作を確認してみます。
-①ログイン後のデーターベース一覧を表示する
+#### データーベースを作成する
 ```js:Terminal
-$ \l
+postgres=# CREATE DATABASE test;
+# データーベース一覧を表示する
+postgres=# \l
+# データーベースを切り替える
+postgres=# \c test
 ```
-②ロールを確認する
+
+#### テーブルを作成する
 ```js:Terminal
-$ \du
+test=# CREATE TABLE Shohin
+(
+    shohin_id     CHAR(4)      NOT NULL,
+    shohin_mei    VARCHAR(100) NOT NULL,
+    shohin_bunrui VARCHAR(32)  NOT NULL,
+    hanbai_tanka  INTEGER ,
+    shiire_tanka  INTEGER ,
+    torokubi      DATE ,
+    PRIMARY KEY (shohin_id)
+);
 ```
-問題なく表示されているようなら動作は問題ありません。
+
+#### テーブルを挿入する
+```js:Terminal
+test=# INSERT INTO Shohin VALUES ('0001', 'Tシャツ' ,'衣服', 1000, 500, '2009-09-20');
+```
+
+#### テーブル一覧を確認する
+```js:Terminal
+test=# SELECT * FROM Shohin;
+ shohin_id | shohin_mei | shohin_bunrui | hanbai_tanka | shiire_tanka |  torokubi  
+-----------+------------+---------------+--------------+--------------+------------
+ 0001      | Tシャツ    | 衣服          |         1000 |          500 | 2009-09-20
+(1 row)
+```
+
+#### データーベースを削除する
+```js:Terminal
+# DBを postgres に切り替え
+test=# \c postgres
+# データーベースを削除する
+postgres=# DROP DATABASE test;
+# データベース一覧を確認する
+postgres=# \l
+```
+一覧から `test` が消えていればOKです。
 
 #### データーベースの接続を終了する
 DBの接続を終了するには `\q` コマンドを使用します。
 ```js:Terminal
-$ \q
+postgres=# \q
 ```
-これで「Homebrewからインストールする」は完了です。
-
-
 
 # まとめ
 環境によって構築の手順は左右されることから「インストーラーからインストールする」と「Homebrewからインストールする」の異なるインストール方法をご紹介させていただきました。プロジェクトの指示に従ってどちらかの手順でインストールしていただければ良いと思います。
+
+使い方や権限設定など詳しいことを知りたい方は下記の記事がお勧めです。
+https://zero-cheese.com/1028/
