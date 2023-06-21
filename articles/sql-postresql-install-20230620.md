@@ -133,7 +133,6 @@ $ initdb /usr/local/var/postgres -E utf8
 # PostgreSQLの動作確認をする
 ここでは「DBの起動の一連の流れ」を扱います。
 
-### DBの起動の一連の流れ
 #### PostgreSQLを起動する
 ```js:Terminal
 $ brew services start postgresql
