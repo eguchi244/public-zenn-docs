@@ -75,8 +75,10 @@ Launch Stack Builderのチェックを入れて終了すると追加のツール
 ```js:Terminal
 $ brew --version
 $ brew update
-$ brew brew upgrade
+$ brew upgrade
 $ brew cleanup # 不要な formulae を削除
+# brew上で起動しているサービス一覧を確認する
+$ brew services list
 ```
 
 #### インストールできるpostgreSQLを確認する
@@ -89,10 +91,38 @@ $ brew search postgresql
 ```js:Terminal
 $ brew install postgresql
 ```
+:::message
+Homebrewでインストールしたものを削除する方法
+```js:Terminal
+# Homebrewのサービスを一覧表示する
+$ brew list
+# Homebrewのサービスを削除する
+$ brew install ****
+```
+:::
+:::message
+Homebrewそのものを削除する方法
+```js:Terminal
+# Homebrewそのものを削除する
+$ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)"
+```
+:::
 
 #### バージョンの確認をする
 ```js:Terminal
 $ psql --version
+```
+
+#### pgAdminをインストールする（任意）
+pgAdminは、PostgreSQLを視覚的に操作するためのツールです。
+```js:Terminal
+$ brew cask install pgadmin4
+```
+
+#### PostgreSQLを初期化する
+PostgreSQLは、最初に初期化する必要がある場合もあります。
+```js:Terminal
+$ initdb /usr/local/var/postgres -E utf8
 ```
 
 #### PostgreSQLを起動する
@@ -102,27 +132,54 @@ Warning: Formula postgresql was renamed to postgresql@14.
 ==> Successfully started `postgresql@14` (label: homebrew.mxcl.postgresql@14)
 ```
 
-#### PostgreSQLに接続する
+#### データーベースの一覧を確認する
+`Owner`は、データーベースにログインする時に使用します。
 ```js:Terminal
-# ログイン
-$ psql postgres
-# パスワード設定（デフォルトで設定）
-postgres=#  postgres
-# ログアウト
-postgres=# \q
+$ psql -l
+# 以下は実行結果(例)
+                               List of databases
+    Name    |   Owner   | Encoding | Collate | Ctype |    Access privileges    
+------------+-----------+----------+---------+-------+-------------------------
+ example-db | ***       | UTF8     | C       | C     | 
+ postgres   | ***       | UTF8     | C       | C     | 
+ template0  | ***       | UTF8     | C       | C     | =c/***      +
+            |           |          |         |       | ***=CTc/***
+ template1  | ***       | UTF8     | C       | C     | ***=CTc/***+
+            |           |          |         |       | =c/***
 ```
 
-これにより下記のように設定された状態になります。
+#### データーベースに接続する
+DBに接続するには `psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` を使用します。
+```js:Terminal
+$ psql -h localhost -p 5432 -U **** -d postgres
+```
+デフォルトでは下記のように設定されている状態になっています。
 | 名称 | 設定値 | 備考 |
 | ---- | :---- | :---- |
 | ホスト名  | localhost | localhostの場合 |
 | ポート番号  | 5432 | デフォルト |
-| ロール名（ユーザー名）  | **** | ※スーパーユーザー |
+| ロール名（ユーザー名）  | オーナー名 | ※スーパーユーザー |
 | データベース名  | postgres | デフォルト |
 
 ※ スーパーユーザーは、データベース内のアクセス制限をすべて変更することができます
 
-次回からは`psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` でも接続をできます。
+#### 接続後の動作確認をする
+いくつかのコマンドを使って動作を確認してみます。
+①ログイン後のデーターベース一覧を表示する
 ```js:Terminal
-$ psql -h localhost -p 5432 -U **** -d postgres
+$ \l
 ```
+②ロールを確認する
+```js:Terminal
+$ \du
+```
+問題なく表示されているようなら動作は問題ありません。
+
+#### データーベースの接続を終了する
+DBの接続を終了するには `\q` コマンドを使用します。
+```js:Terminal
+$ \q
+```
+
+# まとめ
+環境によって構築の手順は左右されることから「インストーラーからインストールする」と「Homebrewからインストールする」の異なるインストール方法をご紹介させていただきました。プロジェクトの指示に従ってどちらかの手順でインストールしていただければ良いと思います。
