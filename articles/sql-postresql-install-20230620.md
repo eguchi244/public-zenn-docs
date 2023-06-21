@@ -13,11 +13,11 @@ published: true # 公開に指定する
 # インストーラーからインストールする
 下記の手順に沿ってインストールを実施してください。
 
-## 公式ページにアクセスする
+### 公式ページにアクセスする
 下記から公式ページのダウンロードページにアクセスしてください。
 https://www.postgresql.org/download/
 
-## インストールするPCのOSを選択する（MacOSを選択する）
+### インストールするPCのOSを選択する（MacOSを選択する）
 ![](/images/sql-postresql-install-20230620/2023-06-20-18-03-00.png)
 
 ### Download the installer をクリックする
