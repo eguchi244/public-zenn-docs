@@ -77,7 +77,7 @@ Launch Stack Builderのチェックを入れて終了すると追加のツール
 これで「インストーラーからインストールする」は完了です。
 
 
-## Homebrewからインストールする
+# Homebrewからインストールする
 
 
 #### Homebrewを確認してアップデートする
@@ -130,7 +130,7 @@ $ initdb /usr/local/var/postgres -E utf8
 これで「Homebrewからインストールする」は完了です。
 
 
-## PostgreSQLの動作確認をする
+# PostgreSQLの動作確認をする
 ここでは「DBの起動の一連の流れ」を扱います。
 
 ### DBの起動の一連の流れ
