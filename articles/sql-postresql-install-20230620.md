@@ -106,7 +106,7 @@ Homebrewでインストールしたものを削除する方法
 # Homebrewのサービスを一覧表示する
 $ brew list
 # Homebrewのサービスを削除する
-$ brew install ****
+$ brew uninstall ****
 ```
 :::
 :::message
