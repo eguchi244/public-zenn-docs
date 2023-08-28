@@ -956,7 +956,7 @@ Laravelは、フルスタックフレームワークです。フロントエン�
 **【目標】hello world を表示させる, phpMyAdminに接続する**
 さっそく本格的なENV設定をしていきましょう。
 
-phpMyAdmin は必須なので念のために再ビルドを実行しておいてください。
+この作業では `phpMyAdmin` は必須なので念のために再ビルドを実行しておきます。
 特にGithubでコード管理してる方などは `phpMyAdmin` はリモートブランチに `push` されないので陥りがちです。
 ```js:Terminal
 # Dockerで再ビルドする
