@@ -44,6 +44,7 @@ LaravelをDockerで構築して以下の内容を実施することを目的と�
 - PHP：PHP 8.0.x
 - Nginx：Nginx latest
 :::
+
 :::message
 【ディレクトリ構成】
 ```js:
@@ -59,6 +60,7 @@ Laravel9-Docker-TestPJ（ルートディレクトリ）※ 任意の名前でOK
 └── src 
     └──  Laravel9TestProject（Laravelのプロジェクトディレクトリ）※ 任意の名前でOK
 ```
+:::
 
 # Laravelとフレームワーク
 ### Laravelとは
