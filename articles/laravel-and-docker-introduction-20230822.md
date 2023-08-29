@@ -59,7 +59,6 @@ Laravel9-Docker-TestPJ（ルートディレクトリ）※ 任意の名前でOK
 └── src 
     └──  Laravel9TestProject（Laravelのプロジェクトディレクトリ）※ 任意の名前でOK
 ```
-:::
 
 # Laravelとフレームワーク
 ### Laravelとは
