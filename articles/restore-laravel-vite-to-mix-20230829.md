@@ -3,7 +3,7 @@ title: "LaravelのViteをLaravel Mixに戻す方法"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Laravel", "Vite", "LaravelMix"]
-published: false # 公開に指定する
+published: true # 公開に指定する
 ---
 # はじめに
 Laravel9以降のバージョンでは、フロントエンド(JS,CSS)のビルドツールが、従来のLaravel MixからViteへと置き換わりました。
