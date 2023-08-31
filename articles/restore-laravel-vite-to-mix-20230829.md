@@ -42,7 +42,7 @@ root@~# cd <プロジェクトディレクトリ名>
 ```
 1. Nodeモジュールのインストールしておく
 ```js:Terminal
-# npm(jsモジュール)をインストールして実行してみる
+# npm(jsモジュール)をインストールする
 root@~# npm install
 ```
 
@@ -272,7 +272,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 3. MixでビルドしたJSやCSSをBladeファイルで読み込めるように追加する
 ```js:Bladeファイル（resources/views/welcome.blade.phpなど）
-/* 下記を追加する */
+{{-- 下記を追加する --}}
 <!-- Styles -->
 <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 <!-- Scripts -->

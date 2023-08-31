@@ -38,7 +38,7 @@ LaravelをDockerで構築して以下の内容を実施することを目的と�
 
 :::message
 【環境構築の目標】
-- フレームワーク：Laravel Framework 9.x.x
+- フレームワーク：Laravel Framework 9.x.x(Vite)
 - データベース：MYSQL 5.7.36
 - DB管理ツール : phpMyAdmin latest
 - PHP：PHP 8.0.x
