@@ -43,6 +43,7 @@ LaravelをDockerで構築して以下の内容を実施することを目的と�
 - DB管理ツール : phpMyAdmin latest
 - PHP：PHP 8.0.x
 - Nginx：Nginx latest
+- Node.js：node 14.18-alpine
 :::
 
 :::message
