@@ -30,7 +30,7 @@ Laravel9とVue.jsをDockerで構築して以下の内容を実施することを
 
 1. Laravelを導入する
 2. Vite から Laravel Mix に戻す
-3. Veu.jsと各種ライブラリーを導入する
+3. Vue.jsと各種ライブラリーを導入する
 
 LaravelではVue.jsを導入しやすく、LaravelとVue.jsの組み合わせは実務のプロジェクトでもよく見受けられるので、ぜひ導入できるようになりましょう。
 
@@ -496,7 +496,7 @@ Laravel9以降では、フロントエンド(JS,CSS)のビルドツールにつ�
 
 これで「②Vite から Laravel Mix に戻す」は完了です。
 
-# ③Veu.jsと各種ライブラリーを導入する
+# ③Vue.jsと各種ライブラリーを導入する
 ここからは Vue.js と 各種ライブラリーを導入していきます。
 
 下記の記事を見ながら作業をすると理解が進むと思います。
@@ -578,7 +578,7 @@ Vue.jsの動作確認をViewで確認するために下記の編集をしてく�
 ```
 Laravelではセキュリティの関連からVue.jsを利用する場合、CSRFトークンを追加することを推奨しています。CRSF対策を一から組み込もうとしたら、かなり大変ですがLaravelでは標準で備わっています。
 
-【Veu.jsのサンプルコンポーネントを取り込む】
+【Vue.jsのサンプルコンポーネントを取り込む】
 ```js:welcome.blade.php
 <div id="app">
     <example-component></example-component>
@@ -726,7 +726,7 @@ Vueは上記のように #app を目印にしてカスタムタグからVueコ�
                     </div>
                 </div>
 
-                <!-- Veu.jsのサンプルコンポーネント（ExampleComponent.vue）を取り込む -->
+                <!-- Vue.jsのサンプルコンポーネント（ExampleComponent.vue）を取り込む -->
                 <div id="app">
                     <example-component></example-component>
                 </div><!-- #app -->
@@ -782,7 +782,7 @@ Laravel Mixのビルド処理によりコンパイルされるjs、cssを除外�
 /public/css
 ```
 
-これで「③Veu.jsと各種ライブラリーを導入する」は完了です。
+これで「③Vue.jsと各種ライブラリーを導入する」は完了です。
 
 # まとめ
 これで全ての作業が完了しました。お疲れ様でした。
