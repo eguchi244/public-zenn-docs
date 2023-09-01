@@ -1,15 +1,15 @@
 ---
-title: "Laravel9とVue.jsをDockerで導入してみよう!"
+title: "Laravel9とReactをDockerで導入してみよう!"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
-topics: ["Laravel", "PHP", "Docker", "dockercompose", "Vue"]
+topics: ["Laravel", "PHP", "Docker", "dockercompose", "React"]
 published: true # 公開に指定する
 ---
 # はじめに
-この記事では「Laravel9とVue.jsをDockerで簡単に構築すること」を目指します。
+この記事では「Laravel9とReactをDockerで簡単に構築すること」を目指します。
 Dockerを使って少ない労力で環境構築できるようになりたい方のための記事です。
-![](/images/laravel-vue-docker-introduction-20230828/2023-08-22-13-10-28.png =500x)
-![](/images/laravel-vue-docker-introduction-20230828/2023-08-28-12-35-33.png =500x)
+![](/images/laravel-react-docker-introduction-20230831/2023-08-22-13-10-28.png =500x)
+![](/images/laravel-react-docker-introduction-20230831/2023-08-31-16-52-47.png =500x)
 
 Laravel単体をDokcerで導入することに興味がある方は下記の記事を参照してください。
 https://zenn.dev/eguchi244_dev/articles/laravel-and-docker-introduction-20230822
@@ -26,16 +26,16 @@ https://zenn.dev/eguchi244_dev/articles/laravel-and-docker-introduction-20230822
 これらについては詳細に解説することはありませんのでご承知ください。
 
 # 目的＆内容
-Laravel9とVue.jsをDockerで構築して以下の内容を実施することを目的とします。
+Laravel9とReactをDockerで構築して以下の内容を実施することを目的とします。
 
 1. Laravelを導入する
 2. Vite から Laravel Mix に戻す
-3. Veu.jsと各種ライブラリーを導入する
+3. Reactと各種ライブラリーを導入する
 
-LaravelではVue.jsを導入しやすく、LaravelとVue.jsの組み合わせは実務のプロジェクトでもよく見受けられるので、ぜひ導入できるようになりましょう。
+LaravelではReactを導入しやすく、LaravelとReactの組み合わせは実務のプロジェクトでもよく見受けられるので、ぜひ導入できるようになりましょう。
 
 # 環境構築の目標
-環境構築の目標は「Laravel9とVue.jsをDockerで構築する」ことです。
+環境構築の目標は「Laravel9とReactをDockerで構築する」ことです。
 具体的には以下の構成で環境構築をします。
 
 :::message
@@ -49,7 +49,7 @@ LaravelではVue.jsを導入しやすく、LaravelとVue.jsの組み合わせは
 :::
 【ディレクトリ構成】
 ```js:
-Laravel9-Vue-TestPJ（ルートディレクトリ）※ 任意の名前でOK
+Laravel9-React-TestPJ（ルートディレクトリ）※ 任意の名前でOK
 ├── docker-compose.yml
 ├── docker 
 │   ├── php 
@@ -59,26 +59,35 @@ Laravel9-Vue-TestPJ（ルートディレクトリ）※ 任意の名前でOK
 │       └── default.conf 
 ├── phpMyAdmin
 └── src 
-    └──  LaravelVueProject（Laravelのプロジェクトディレクトリ）※ 任意の名前でOK
+    └──  LaravelReactProject（Laravelのプロジェクトディレクトリ）※ 任意の名前でOK
 ```
 
-# Vue.jsとは
-Vue.jsは、アプリケーション開発において、UIを構築するためのJavaScriptフレームワークです。開発者のEvan You氏が提唱したプログレッシブ・フレームワーク（段階的に適用できる構造）という概念のもとで設計されています。
+# Reactとは
+**UIを作ることに特化したJavaScriptライブラリ**
 
-アプリケーションは、リリースされた後も開発が続けられることが一般的です。段階的な仕様変更や新しい機能の追加が繰り返されると、当初採用したフレームワークでは対応が難しくなってくることがあります。そのようなときにVue.jsを採用すれば、既存のアプリケーションへの導入も簡単にでき、要件に合わせた機能を追加していくことでアプリケーションを拡張できます。
+Reactとは、Facebook社が開発したWebサイト上のUIパーツを構築するためのJavaScriptライブラリです。AngularJSやjQueryと比較されますが、React自体はフレームワークでなく、あくまでもUIを構築するだけのライブラリです。
 
-より詳しく知りたい方は下記の参考ページを参照してください。
-https://www.webstaff.jp/guide/trend/vuejs/#case01
+# Reactの特徴
+Reactは下記の3つの特徴を持っています。
+
+1. 宣言的なView（Declarative）
+Reactは、UIの部品に対し「このような表示（見た目）になります」と宣言するように実装できるという特徴を持っています。
+1. コンポーネントベース（Component-Based）
+コンポーネントとは構成要素を指す言葉です。Reactでは、部分ごとにコンポーネントを分けることで、カスタマイズしやすくなっています。
+1. 一度学習すれば、どこでも使える（Learn Once, Write Anywhere）
+Reactは、開発の途中から利用されることを想定して作られています。
+
+ライブラリであるからこそ、どのタイミングでも導入できるのが大きな特徴です。
 
 # ①Laravelを導入する
 さっそくLaravelを導入していきましょう！下記の手順を実施してください。
 
 1. ルートディレクトリを作成する  
 
-任意のディレクトリに「Laravel9-Vue-TestPJ」を作成します。
+任意のディレクトリに「Laravel9-React-TestPJ」を作成します。
 ```js:Terminal
-$ mkdir Laravel9-Vue-TestPJ
-~Laravel9-Vue-TestPJ $ cd Laravel9-Vue-TestPJ
+$ mkdir Laravel9-React-TestPJ
+~Laravel9-React-TestPJ $ cd Laravel9-React-TestPJ
 ```
 
 2. docker-compose.ymlファイルを作成して編集する
@@ -182,12 +191,12 @@ volumes:
 
 3. ルートディレクトリ直下に `¥docker` `¥src` を作成する
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ mkdir docker && mkdir src
+~Laravel9-React-TestPJ $ mkdir docker && mkdir src
 ```
 
 4. `¥docker` 直下に `¥php` `¥nginx` を作成する
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ cd docker
+~Laravel9-React-TestPJ $ cd docker
 ~docker$ mkdir php && mkdir nginx
 ```
 
@@ -265,7 +274,7 @@ server {
     send_timeout 300;
     keepalive_timeout 300;
 
-    root /var/www/LaravelVueProject/public;
+    root /var/www/LaravelReactProject/public;
 
     location / {
         try_files $uri $uri/ /index.php?$query_string;
@@ -334,7 +343,7 @@ server {
 
 この部分をLaravelのプロジェクト名に書き替えないとエラーになります。
 あらかじめLaravelのプロジェクト名は決めておきましょう。
-今回は「LaravelVueProject」をPJ名にしています。
+今回は「LaravelReactProject」をPJ名にしています。
 ```js:
 root /var/www/<Laravelのプロジェクト名>/public;
 ```
@@ -343,19 +352,19 @@ root /var/www/<Laravelのプロジェクト名>/public;
 7. Docker を起動してコンテナを作る
 ```js:Terminal
 ~nginx $ cd .. && cd ..
-~Laravel9-Vue-TestPJ $ docker-compose up -d
+~Laravel9-React-TestPJ $ docker-compose up -d
 ```
 
 8. コンテナにログインする(シェル内でコンテナ操作できるようになります)
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ docker-compose exec php bash
+~Laravel9-React-TestPJ $ docker-compose exec php bash
 ```
 
 9. Laravelをインストールする  
 
 今回は `Composer` を使用してインストールしています。
 ```js:Terminal
-root@~/www# composer create-project "laravel/laravel=9.*" LaravelVueProject
+root@~/www# composer create-project "laravel/laravel=9.*" LaravelReactProject
 ```
 :::message
 それぞれのLaravelのインストール方法
@@ -372,20 +381,20 @@ root@~/www# composer create-project "laravel/laravel=9.*" <Laravelのプロジ�
 
 10. インストールの確認をする
 ```js:Terminal
-root@~/www# cd LaravelVueProject
-root@~LaravelVueProject # php artisan --version
+root@~/www# cd LaravelReactProject
+root@~LaravelReactProject # php artisan --version
 Laravel Framework 9.52.15
 ```
 
 11. ブラウザでLaravelの表示を確認する  
 
 ブラウザに http://localhost/ でアクセスして表示されればOKです。
-![](/images/laravel-vue-docker-introduction-20230828/2023-09-01-10-50-58.png)
+![](/images/laravel-react-docker-introduction-20230831/2023-09-01-10-50-58.png)
 
 12. 念の為に権限を与える（「11」でエラーが出た場合の対応などのため）
 ```js:Terminal
 # PermissionDeniedエラーの対処方法
-root@~LaravelVueProject # chown www-data ./ -R
+root@~LaravelReactProject # chown www-data ./ -R
 ```
 
 13. `.env` と `.env.example` の環境設定をする
@@ -473,10 +482,11 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 :::
 
-14. ブラウザでLaravelの表示を確認する  
+14. ブラウザでLaravelの表示を確認する
 
 ブラウザに http://localhost/ でアクセスして表示されればOKです。
-![](/images/laravel-vue-docker-introduction-20230828/2023-09-01-10-50-58.png)
+![](/images/laravel-react-docker-introduction-20230831/2023-09-01-10-50-58.png)
+
 
 これで「①Laravelを導入する」は完了です。
 
@@ -486,7 +496,7 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 https://zenn.dev/eguchi244_dev/articles/restore-laravel-vite-to-mix-20230829
 
 Vite での環境構築に興味がある方は下記が参考になりますのでご覧ください。
-https://reffect.co.jp/laravel/laravel9_vite/
+https://reffect.co.jp/laravel/laravel9_vite/#google_vignette
 
 :::message alert
 Webpack(Laravel Mix) と vite について
@@ -496,54 +506,46 @@ Laravel9以降では、フロントエンド(JS,CSS)のビルドツールにつ�
 
 これで「②Vite から Laravel Mix に戻す」は完了です。
 
-# ③Veu.jsと各種ライブラリーを導入する
-ここからは Vue.js と 各種ライブラリーを導入していきます。
+# ③Reactと各種ライブラリーを導入する
+ここからは React と 各種ライブラリーを導入していきます。
 
 下記の記事を見ながら作業をすると理解が進むと思います。
-https://migisanblog.com/laravel-vue-install/#index_id2
+https://migisanblog.com/laravel-react-install/
 
 0. コンテナにログインする
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ docker-compose exec php bash
-root@~/www# cd LaravelVueProject
+~Laravel9-React-TestPJ $ docker-compose exec php bash
+root@~/www# cd LaravelReactProject
 # キージェネレートしておく
-root@~LaravelVueProject # php artisan key:generate
+root@~LaravelReactProject # php artisan key:generate
 ```
 
 1. laravel/uiのインストール（認証系のライブラリ）
 ```js:Terminal
-root@~LaravelVueProject # composer require laravel/ui
+root@~LaravelReactProject # composer require laravel/ui
 ```
-2. laravel/ui vueのインストール（フロントエンドのベースコード）
+2. laravel/ui reactのインストール（フロントエンドのベースコード）
 
-vueスカホールドのインストールをします。
+reactスキャホールドのインストールをします。
 ```js:Terminal
-root@~LaravelVueProject # php artisan ui vue
+root@~LaravelReactProject # php artisan ui react
 # phpコンテナからログアウトする
-root@~LaravelVueProject # exit
+root@~LaravelReactProject # exit
 # nodeコンテナにログインする
-root@~LaravelVueProject # docker-compose exec node /bin/sh
-root@~/www# cd LaravelVueProject
+~Laravel9-React-TestPJ $ docker-compose exec node /bin/sh
+root@~/www#  cd LaravelReactProject
 ```
 :::message
 スキャホールドとは
 
 スキャホールド（Scaffold）とは「足場」という意味で、例えばデータベースの基本操作（登録、参照、更新など）に必要な機能の骨組みを自動生成する機能のことをいう。
 
-今回はVue.jsを使うための「足場」を作ったということです。
+今回はReactを使うための「足場」を作ったということです。
 :::
 
-3. Vue Routerのインストール（ルーティング制御用プラグイン）
-```js:Terminal
-root@~LaravelVueProject # npm install vue-router@3
-```
-4. Vue テンプレートのインストール（Vue.jsテンプレートコンパイル用プラグイン）
-```js:Terminal
-root@~LaravelVueProject # npm install vue-template-compiler --save-dev
-```
-5. `webpack.mix.js` を編集する
+3. `webpack.mix.js` を編集する
 
-Vue.jsで LaravelMix が動作するように `webpack.mix.js` を編集します。
+Reactで LaravelMix が動作するように `webpack.mix.js` を編集します。
 :::details webpack.mix.js の記述内容
 ```js:webpack.mix.js
 const mix = require('laravel-mix');
@@ -563,28 +565,26 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ])
-    .vue()
+    .react()
     .sass('resources/sass/app.scss', 'public/css');
 ```
 :::
 
-6. Vueコンポーネントを `welcome.blade.php` に取り込む
+4. Reactコンポーネントを `welcome.blade.php` に取り込む
 
-Vue.jsの動作確認をViewで確認するために下記の編集をしてください。
+Reactの動作確認をViewで確認するために下記の編集をしてください。
 
 【CSRFトークンの挿入を追加する】
 ```js:welcome.blade.php
 <meta name="csrf-token" content="{{ csrf_token() }}">
 ```
-Laravelではセキュリティの関連からVue.jsを利用する場合、CSRFトークンを追加することを推奨しています。CRSF対策を一から組み込もうとしたら、かなり大変ですがLaravelでは標準で備わっています。
+Laravelではセキュリティの関連からReactを利用する場合、CSRFトークンを追加することを推奨しています。CRSF対策を一から組み込もうとしたら、かなり大変ですがLaravelでは標準で備わっています。
 
-【Veu.jsのサンプルコンポーネントを取り込む】
+【Reactのサンプルコンポーネントを取り込む】
 ```js:welcome.blade.php
-<div id="app">
-    <example-component></example-component>
-</div><!-- #app -->
+<div id="example"></div>
 ```
-Vueは上記のように #app を目印にしてカスタムタグからVueコンポーネント（今回はExampleComponent.vue）を取り込むことができます。
+Reactは上記のように #example を目印にしてReactコンポーネント（今回はExample.js）を取り込むことができます。
 
 :::details [resources/views/welcome.blade.php] の記述内容
 ```js:welcome.blade.php
@@ -612,7 +612,7 @@ Vueは上記のように #app を目印にしてカスタムタグからVueコ�
 
         <!-- CSRFトークンの挿入を追加する -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        
+
         <!-- 下記を追加する -->
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
@@ -726,10 +726,8 @@ Vueは上記のように #app を目印にしてカスタムタグからVueコ�
                     </div>
                 </div>
 
-                <!-- Veu.jsのサンプルコンポーネント（ExampleComponent.vue）を取り込む -->
-                <div id="app">
-                    <example-component></example-component>
-                </div><!-- #app -->
+                <!-- Veu.jsのサンプルコンポーネント（Example.js）を取り込む -->
+                <div id="example"></div>
 
             </div>
         </div>
@@ -738,55 +736,55 @@ Vueは上記のように #app を目印にしてカスタムタグからVueコ�
 ```
 :::
 
-7. フロントエンドビルド（JS,CSS）を実行する
+5. フロントエンドビルド（JS,CSS）を実行する
     1. npm(jsモジュール)を再インストールして実行する
 
     各種loaderをインストールするために npm をビルドします。
     ```js:Terminal
-    root@~LaravelVueProject # npm install && npm run dev
+    root@~LaravelReactProject # npm install && npm run dev
     ```
     ※この段階では、npm ERR! が発生します（ケース4）参考：[npm ERR! の対処法](https://qiita.com/wafuwafu13/items/2fe43414aa6e1899f494)
     依存関係などを解消するために下記の手順を実施してください。
 
     2. インストールされたJSモジュールを全部消す
     ```js:Terminal
-    root@~LaravelVueProject # rm -rf node_modules
+    root@~LaravelReactProject # rm -rf node_modules
     ```
     3. インストールされたJSモジュールのバージョン情報を消す
     ```js:Terminal
-    root@~LaravelVueProject # rm -rf package-lock.json
+    root@~LaravelReactProject # rm -rf package-lock.json
     ```
     4. npmのキャッシュをクリアする
     ```js:Terminal
-    root@~LaravelVueProject # npm cache clear --force
+    root@~LaravelReactProject # npm cache clear --force
     ```
     5. npm(jsモジュール)を再インストールして実行する
     ```js:Terminal
-    root@~LaravelVueProject # npm install && npm run dev
+    root@~LaravelReactProject # npm install && npm run dev
     ```
-    ![](/images/laravel-vue-docker-introduction-20230828/2023-08-31-14-46-48.png)
+    ![](/images/laravel-react-docker-introduction-20230831/2023-09-01-18-34-29.png)
 
-9. ブラウザで表示されるか確認する
+6. ブラウザで表示されるか確認する
 
-ブラウザに [http://localhost/](http://localhost/) で Vueコンポーネント が表示されればOKです。
+ブラウザに [http://localhost/](http://localhost/) で Reactコンポーネント が表示されればOKです。
 
-![](/images/laravel-vue-docker-introduction-20230828/2023-08-31-15-03-06.png)
+![](/images/laravel-react-docker-introduction-20230831/2023-09-01-18-31-42.png)
 
-10. LaravelMixビルドのコンパイルを対象外にする
+7. LaravelMixビルドのコンパイルを対象外にする
 
 Laravel Mixのビルド処理によりコンパイルされるjs、cssを除外対象にしています。
 これをしないとコンパイルのたびにGitなどに書き換えが検出されて煩わしくなります。
 
-```js:[src/LaravelVueProject/.gitignore]の末尾に追加
+```js:[src/LaravelReactProject/.gitignore]の末尾に追加
 /public/js
 /public/css
 ```
 
-これで「③Veu.jsと各種ライブラリーを導入する」は完了です。
+これで「③Reactと各種ライブラリーを導入する」は完了です。
 
 # まとめ
 これで全ての作業が完了しました。お疲れ様でした。
-ここまでの作業で「Laravel9とVue.jsをDockerで導入する方法」を概ね理解できたのではないでしょうか。
+ここまでの作業で「Laravel9とReactをDockerで導入する方法」を概ね理解できたのではないでしょうか。
 
 環境構築は手間が掛かるものですが Docker を使えば コマンドを何度か実行すれば環境構築できるようになります。本当にしたい作業に集中するためにも手早く済ませたいものですよね。
 

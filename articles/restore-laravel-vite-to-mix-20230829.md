@@ -30,6 +30,8 @@ https://chigusa-web.com/blog/laravel-sail/
 【Mac】
 https://chigusa-web.com/blog/laravel-sail-mac/
 
+これで「Laravelを導入する」は完了です。
+
 # LaravelからViteを削除する
 ここでは「LaravelからViteを削除する」方法を紹介します。
 
@@ -154,11 +156,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 ```
 :::
 
-7. `.env` を修正する
+7. `.env` と `.env.example` を修正する
 
-Vite用の設定を削除し、Laravel Mix用の設定を追加します。
+`.env.example` のVite用の設定を削除し、Laravel Mix用の設定を追加します。
 
-```js:.env（削除）
+```js:.env.example（削除）
 VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 VITE_PUSHER_HOST="${PUSHER_HOST}"
 VITE_PUSHER_PORT="${PUSHER_PORT}"
@@ -166,12 +168,25 @@ VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 
-```js:.env（追加）
+```js:.env.example（追加）
 MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 
+次に `.env.example` を `.env` にコピーします。
+```js:Terminal
+root@~ # exit
+root@~ # docker-compose exec php bash
+root@~ # cd <プロジェクトディレクトリ>
+# .env.example を .env にコピー
+root@~ # cp .env.example .env
+# キージェネレートする
+root@~ # php artisan key:generate
+root@~ # exit
+```
+
 :::details .envの全体コード
+Dockerを使ってない方はこちらからコピーするのを避けてください。
 ```js:.env
 APP_NAME=Laravel
 APP_ENV=local
@@ -238,6 +253,9 @@ MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 
 1. LaravelMixをインストールする
 ```js:Terminal
+# nodeコンテナにログインする
+root@~# docker-compose exec node /bin/sh
+root@~# cd <プロジェクトディレクトリ>
 root@~# npm install --save-dev laravel-mix
 ```
 2. `webpack.mix.js` を作成する
@@ -318,7 +336,7 @@ package.jsonの "script" に下記を追加する。
 
 「LaravelからViteを削除する」の「jsファイルを修正する」と同じなので省略します。
 
-6. `.env` を修正する
+6. `.env` と `.env.example` を修正する
 
 「LaravelからViteを削除する」の「.envを修正する」と同じなので省略します。
 
