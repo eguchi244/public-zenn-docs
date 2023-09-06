@@ -111,7 +111,7 @@ $ mkdir Laravel9-Docker-TestPJ
 
 `docker-compose.yml` は Docker Compose を利用するために使用するYMLファイルです。
 ```js:Terminal
-touch docker-compose.yml
+$ touch docker-compose.yml
 ```
 :::details docker-compose.yml の記述内容
 ```js:docker-compose.yml
@@ -119,10 +119,10 @@ version: '3'
 services:
   db:
     image: mysql:5.7.36
-    container_name: "mysql_test01"
+    container_name: "mysql_test"
     environment:
         MYSQL_ROOT_PASSWORD: root
-        MYSQL_DATABASE: LaravelProject_test_db
+        MYSQL_DATABASE: mysql_test_db
         MYSQL_USER: admin
         MYSQL_PASSWORD: secret
         TZ: 'Asia/Tokyo'
@@ -133,20 +133,20 @@ services:
     command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     # 名前付きボリュームを設定する（名前付きボリューム:コンテナ側ボリュームの場所）
     volumes:
-      - db_data_test01:/var/lib/mysql
-      - db_my.cnf_test01:/etc/mysql/conf.d/my.cnf
-      - db_sql_test01:/docker-entrypoint-initdb.d
+      - db_data_test:/var/lib/mysql
+      - db_my.cnf_test:/etc/mysql/conf.d/my.cnf
+      - db_sql_test:/docker-entrypoint-initdb.d
 
   php:
     build: ./docker/php
-    container_name: "php-fpm_test01"
+    container_name: "php-fpm"
     # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
     volumes:
       - ./src:/var/www
 
   nginx:
     image: nginx:latest
-    container_name: "nginx_test01"
+    container_name: "nginx_test"
     # ポートフォワードの指定（ホスト側ポート：コンテナ側ポート）
     ports:
       - 80:80
@@ -160,7 +160,7 @@ services:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
-    container_name: "phpmyadmin_test01"
+    container_name: "phpmyadmin_test"
     environment:
       - PMA_ARBITRARY=1 # サーバ設定：サーバーをローカル以外も指定
       - PMA_HOST=db # ホスト設定：dbを指定
@@ -176,36 +176,22 @@ services:
     volumes:
       - ./phpmyadmin/sessions:/sessions
 
+  node:
+    image: node:14.18-alpine
+    container_name: "node14.18-alpine"
+    # コンテナ内の標準出力とホストの出力を設定：trueを指定
+    tty: true
+    # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
+    volumes:
+      - ./src:/var/www
+    # コンテナ起動後のカレントディレクトリを設定
+    working_dir: /var/www
+
 # サービスレベルで名前付きボリュームを命名する
 volumes:
-  db_data_test01:
-  db_my.cnf_test01:
-  db_sql_test01:
-```
-:::message alert
-名前付きボリュームを使用する理由
-
-ボリュームのマウント先をホストディレクトリにする書き方をすると環境によっては コンテナ内のユーザーが持っている権限とマウントされたディレクトリの権限が一致せずコンテナが立ち上がらないことがあるからです。
-
-名前付きボリュームを使用しない書き方は下記の箇所を書き換えてください。
-```js:docker-compose.yml
-services:
-  db:
-    [中略]
-    # ここから先を書き換える
-    # ボリュームを設定する（ホスト側ディレクトリ:コンテナ側ボリュームの場所）
-    # ホストの作業フォルダ内「./docker/db/data」をコンテナ内「/var/lib/mysql」にマウントする
-    volumes:
-      - ./docker/db/data:/var/lib/mysql
-      - ./docker/db/my.cnf:/etc/mysql/conf.d/my.cnf
-      - ./docker/db/sql:/docker-entrypoint-initdb.d
-
-[中略]
-# サービスレベルで名前付きボリュームを命名するを全部削除する
-volumes:
-  db_data_test01:
-  db_my.cnf_test01:
-  db_sql_test01:
+  db_data_test:
+  db_my.cnf_test:
+  db_sql_test:
 ```
 
 :::
@@ -410,6 +396,11 @@ root@~LaravelTestProject # exit
 
 これで「**①Laravelを導入する**」は完了です。
 
+とりあえず、**Laravelを起動させて表示を確認する** ことを目的とする場合はこれで終わりです。
+まずは、お疲れ様でした。
+
+このまま データーベース と phpMyAdmin の設定を済ませて開発に進みたい方は「**⑤本格的なENV設定**」までスキップしてください。
+
 # ②テストページを作成する
 次はテストページを作成してみましょう。目標は Hello world を表示させることです。
 
@@ -581,11 +572,6 @@ root@~views#  # exit
 ```
 
 これで「**②テストページを作成する**」は完了です。
-
-とりあえず、**Laravelを起動させて表示を確認する** ことを目的とする場合はこれで終わりです。
-まずは、お疲れ様でした。
-
-また、このまま データーベース と phpMyAdmin の設定を済ませて開発に進みたい方は「**⑤本格的なENV設定**」までスキップしてください。
 
 ここから先のセクションについては環境設定の理解を深めるためのものです。
 環境設定の理解を深めたいという方はもう一踏ん張りですので頑張っていきましょう。
@@ -844,17 +830,6 @@ APP_DEBUG=true
 root@~LaravelTestProject # exit
 ```
 
-### .env.example について
-:::message alert
-超重要
-
-最後に `.env` と `.env.example` について触れておきます。
-
-Laravelでは、非常に重要な `.env` ファイルは Githib などで共有できないようになっています。これは  `.env` がシステムの根幹に関わる環境設定ファイルだからです。そのため `.gitignore` で `.env` が除外指定されています。そして除外されているべきものでもあります。
-
-しかし、環境設定ファイルを雛形なしに作るのは大変です。そこで登場するのが `.env.example` です。`.env.example` ならば除外されることはありません。この `.env.example（間違っても値セキュアな環境情報の値は記述しない）` で環境設定ファイルの雛形を作っておいて共有する。その後にセキュリティの高い方法で `.env.example（環境情報の値も記述されているもの）` 共有して差し替えていくのが開発現場でのセオリーです。
-:::
-
 これで「**③設定ファイルを作成する**」は完了です。
 
 ここまでの学習で`.env` と `config` について理解が深まったのではないでしょうか。
@@ -958,6 +933,8 @@ Laravelは、フルスタックフレームワークです。フロントエン�
 **【目標】hello world を表示させる, phpMyAdminに接続する**
 さっそく本格的なENV設定をしていきましょう。
 
+今までの作業では直接 `.env` に記述してきましたが、ここからは `.env.example`に記述していきます。その理由は巻末の「超重要」のトピックをご覧ください。
+
 この作業では `phpMyAdmin` は必須なので念のために再ビルドを実行しておきます。
 特にGithubでコード管理してる方などは `phpMyAdmin` はリモートブランチに `push` されないので陥りがちです。
 ```js:Terminal
@@ -971,7 +948,13 @@ Laravelは、フルスタックフレームワークです。フロントエン�
 root@~/var/www# cd LaravelTestProject
 ```
 
-1. `.env` 設定を書き換える
+1. `.env` を `.env.example` にコピーする
+```js:Terminal
+root@~LaravelTestProject # cp .env .env.example
+```
+
+
+2. `.env.example` の設定を書き換える
 
 URL設定を `localhost` に変更する
 ```js:.env
@@ -980,6 +963,7 @@ APP_URL=http://localhost
 DBの設定を変更する（DB_HOSTは localhost だと接続されない時がある）
 ```js:.env
 # 値は docker-compose.ymlファイルと同じにする
+DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=LaravelProject_test_db
@@ -990,7 +974,80 @@ DB_PASSWORD=secret
 ```js:.env
 EXAMPLE_APP_KEY = 123456789ABCDEF
 ```
-configフォルダの不要な example.php を削除する
+
+3. `.env.example` を `.env` にコピーする
+
+理由は後述しますが `.env.example` に記述して `.env` に反映させるのは開発のセオリーです。
+```js:Terminal
+root@~LaravelTestProject # cp .env.example .env
+# キージェネレートする
+root@~LaravelTestProject # php artisan key:generate
+```
+
+:::details .env.example の全体コード
+```js:.env.example
+APP_NAME=Laravel
+APP_ENV=local
+APP_KEY=base64:uDselircjsSAkOadnmIwVxEsTnkjQKjncsDmbLgA05s=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+LOG_CHANNEL=stack
+LOG_DEPRECATIONS_CHANNEL=null
+LOG_LEVEL=debug
+
+DB_CONNECTION=mysql
+DB_HOST=db
+DB_PORT=3306
+DB_DATABASE=LaravelProject_test_db
+DB_USERNAME=admin
+DB_PASSWORD=secret
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=file
+FILESYSTEM_DISK=local
+QUEUE_CONNECTION=sync
+SESSION_DRIVER=file
+SESSION_LIFETIME=120
+
+MEMCACHED_HOST=127.0.0.1
+
+REDIS_HOST=127.0.0.1
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailpit
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS="hello@example.com"
+MAIL_FROM_NAME="${APP_NAME}"
+
+AWS_ACCESS_KEY_ID=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=us-east-1
+AWS_BUCKET=
+AWS_USE_PATH_STYLE_ENDPOINT=false
+
+PUSHER_APP_ID=
+PUSHER_APP_KEY=
+PUSHER_APP_SECRET=
+PUSHER_HOST=
+PUSHER_PORT=443
+PUSHER_SCHEME=https
+PUSHER_APP_CLUSTER=mt1
+
+VITE_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+VITE_PUSHER_HOST="${PUSHER_HOST}"
+VITE_PUSHER_PORT="${PUSHER_PORT}"
+VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
+VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+```
+:::
+
+4. configフォルダの不要な example.php を削除する
 ```js:Terminal
 root@~LaravelTestProject # cd config && rm example.php
 ```
@@ -1009,6 +1066,19 @@ phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題な�
 ```js:Terminal
 root@~config # exit
 ```
+
+### .env.example について
+:::message alert
+超重要
+
+最後に `.env` と `.env.example` について触れておきます。
+
+Laravelでは、非常に重要な `.env` ファイルは Githib などで共有できないようになっています。これは  `.env` がシステムの根幹に関わる環境設定ファイルだからです。そのため `.gitignore` で `.env` が除外指定されています。そして除外されているべきものでもあります。
+
+しかし、環境設定ファイルを雛形なしに作るのは大変です。そこで登場するのが `.env.example` です。`.env.example` ならば除外されることはありません。例えば、プライベートリポジトリなどセキュリティの高い状態で `.env.example（環境情報の値も記述されているもの）` 共有して差し替えていくのが開発現場でのセオリーです。
+
+もっとセキュリティを高める場合は `.env.example` は雛形に徹して 環境情報の値を安全に共有して書き換えていくことになります。
+:::
 
 これで「**⑤本格的なENV設定をする**」は完了です。
 
