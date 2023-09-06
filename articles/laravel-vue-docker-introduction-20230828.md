@@ -784,6 +784,93 @@ Laravel Mixのビルド処理によりコンパイルされるjs、cssを除外�
 
 これで「③Vue.jsと各種ライブラリーを導入する」は完了です。
 
+# 後始末をする
+今回で使ったDockerコンテナなど学習用のものは普段は必要ないので消してしまいましょう。
+Dockerを使っているので必要になったら、またビルド（構築）すれば良いだけです。
+どんなコードを書いていたかを確認したいのであれば本記事を確認すれば済みます。
+
+1. サービスに関連するコンテナ, イメージ, ボリュームを全て削除する
+```js:Terminal
+~Laravel9-Vue-TestPJ $ docker-compose down -v --rmi all
+```
+:::message alert
+解説 - docker-compose down -v --rmi all
+
+このコマンドではサービスに関連する下記の内容を削除してくれます。
+
+- docker-compose down → コンテナ（とネットワーク）の削除
+- -vオプション → ボリュームの削除
+- --rmi all → イメージの削除
+
+個別に消したい場合には下記のようにします。
+```js:Terminal
+# コンテナ（とネットワーク）削除
+~Laravel9-Vue-TestPJ $ docker-compose down
+# コンテナとボリュームの削除
+~Laravel9-Vue-TestPJ $ docker-compose down -v
+# コンテナとイメージの削除
+~Laravel9-Vue-TestPJ $ docker-compose down --rmi all
+```
+
+サービスに関連するものだけを削除するのでこの後に紹介するコマンドより安全です。
+:::
+
+:::details サービスに限定しないで一括で消す場合
+```js:Terminal
+# コンテナを停止する
+~Laravel9-Vue-TestPJ $ docker-compose stop
+# コンテナの一括削除
+~Laravel9-Vue-TestPJ $ docker rm $(docker ps -aq)
+# ネットワークの一括削除
+~Laravel9-Vue-TestPJ $ docker network prune
+# イメージの一括削除
+~Laravel9-Vue-TestPJ $ docker rmi $(docker images -q)
+# ボリュームの削除
+~Laravel9-Vue-TestPJ $ docker volume prune
+```
+但し、このコマンドはサービスに限定せずに全ての現在実行中および停止中の全ての コンテナ, ネットワーク, イメージ, ボリューム を一括削除します。そのため、実行する際には慎重に行なってください。例えば、何が起きても困らない自分の学習用PC端末などですべて消したい場合で使用します。
+:::
+
+:::details 個別に消したい場合
+```js:Terminal
+# コンテナを停止する
+~Laravel9-Vue-TestPJ $ docker-compose stop
+
+# コンテナを確認する
+~Laravel9-Vue-TestPJ $ docker ps -a
+# 特定のコンテナの削除
+~Laravel9-Vue-TestPJ $ docker rm コンテナID (CONTAINER ID)
+
+# ネットワークを確認する
+~Laravel9-Vue-TestPJ $ docker network ls
+# 特定のネットワークの削除
+~Laravel9-Vue-TestPJ $ docker network rm (NETWORK NAME)
+
+# イメージを確認する
+~Laravel9-Vue-TestPJ $ docker images
+# 特定のイメージの削除
+~Laravel9-Vue-TestPJ $ docker rmi イメージID (IMAGE ID)
+
+# ボリュームを確認する
+~Laravel9-Vue-TestPJ $ docker images
+docker volume ls
+# 特定のボリュームの削除
+~Laravel9-Vue-TestPJ $ docker volume rm (VOLUME NAME)
+```
+:::
+
+2. 任意でホストPCの今回で使用したフォルダとファイルを消す
+
+ここでの操作ついては個々人の判断にお任せします。
+本記事をみれば良いと思ってる人はフォルダとファイルも消してしまいましょう。
+```js:Terminal
+# 親ディレクトリに移動
+~Laravel9-Vue-TestPJ $ cd ..
+~親ディレクトリ名 $ rm -rf Laravel9-Vue-TestPJ
+```
+これで「**後始末をする**」は完了です。
+
+
 # まとめ
 これで全ての作業が完了しました。お疲れ様でした。
 ここまでの作業で「Laravel9とVue.jsをDockerで導入する方法」を概ね理解できたのではないでしょうか。
