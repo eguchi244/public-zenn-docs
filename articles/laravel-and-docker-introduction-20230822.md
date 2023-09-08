@@ -923,11 +923,13 @@ root@~LaravelTestProject # exit
 次回からは、Laravelのための本格的なENV設定を学んでいきます。
 
 # ⑤本格的なENV設定をする
-Laravelは、フルスタックフレームワークです。フロントエンドもバックエンドも網羅したタイプのフレームワークです。今まで何も設定していなくても動いていたのはデフォルトの設定の範囲で問題のない機能の実装でしかなかったからです。実際のところ、このセクションで行う内容も初期設定で動いてしまいます。
+Laravelは、フルスタックフレームワークです。フロントエンドもバックエンドも網羅したタイプのフレームワークです。今まで何も設定していなくても動いていたのはデフォルトの設定の範囲で問題のない機能の実装でしかなかったからです。
 
-しかし、それでは Dokcerファイル に合わせた設定に触れずに終わってしまいます。
+実際のところ、このセクションで行う内容も初期設定で動いてしまいます。しかし、それでは Dokcerファイル に合わせた設定に触れずに終わってしまいます。
 
-ここでは理解を深めるためにも Dockerに合わせたENV設定 を学んでいきます。
+例えば、Laravel側でテーブル定義をしてテーブルを作成する機能をマイグレーションと呼びます。この機能を使うには適切に `.env` を設定しておかないといけません。そのためにも「Dockerに合わせたENV設定」をしっかりと身につけておきたいところです。
+
+ここでは理解を深めるためにも 「Dockerに合わせたENV設定」 を学んでいきます。
 
 ## 本格的なENV設定をする
 **【目標】hello world を表示させる, phpMyAdminに接続する**
@@ -966,7 +968,7 @@ DBの設定を変更する（DB_HOSTは localhost だと接続されない時が
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=LaravelProject_test_db
+DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
 DB_PASSWORD=secret
 ```
@@ -999,7 +1001,7 @@ LOG_LEVEL=debug
 DB_CONNECTION=mysql
 DB_HOST=db
 DB_PORT=3306
-DB_DATABASE=LaravelProject_test_db
+DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
 DB_PASSWORD=secret
 
