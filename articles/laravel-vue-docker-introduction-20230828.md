@@ -389,6 +389,8 @@ Laravel9以降はモデルのディレクトリ構成がVersion8未満と異な�
 root@~/www# cd LaravelVueProject
 root@~LaravelVueProject # php artisan --version
 Laravel Framework 9.52.15
+# Composerのオートロードを再実行しておく
+root@~LaravelVueProject # composer dump-autoload
 ```
 
 12. ブラウザでLaravelの表示を確認する  
