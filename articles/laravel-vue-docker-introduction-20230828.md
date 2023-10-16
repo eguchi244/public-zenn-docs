@@ -370,25 +370,39 @@ root@~/www# composer create-project "laravel/laravel=9.*" <Laravelのプロジ�
 ```
 :::
 
-10. インストールの確認をする
+10. Composerのオートロード設定を変更する
+
+Laravel9以降はモデルのディレクトリ構成がVersion8未満と異なっています。
+下記のようにオートロード設定を追加してください。
+```js:composer.json
+"autoload": {
+    "psr-4": {
+        "App\\": "app/",
+        "App\\Models\\": "app/Models/",
+        [中略]
+    }
+},
+```
+
+11. インストールの確認をする
 ```js:Terminal
 root@~/www# cd LaravelVueProject
 root@~LaravelVueProject # php artisan --version
 Laravel Framework 9.52.15
 ```
 
-11. ブラウザでLaravelの表示を確認する  
+12. ブラウザでLaravelの表示を確認する  
 
 ブラウザに http://localhost/ でアクセスして表示されればOKです。
 ![](/images/laravel-vue-docker-introduction-20230828/2023-09-01-10-50-58.png)
 
-12. 念の為に権限を与える（「11」でエラーが出た場合の対応などのため）
+13. 念の為に権限を与える（「12」でエラーが出た場合の対応などのため）
 ```js:Terminal
 # PermissionDeniedエラーの対処方法
 root@~LaravelVueProject # chown www-data ./ -R
 ```
 
-13. `.env` と `.env.example` の環境設定をする
+14. `.env` と `.env.example` の環境設定をする
 
 ここで `docker-compose` に合わせて `.env` の設定を書き換えておきます。
 
@@ -473,7 +487,7 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 :::
 
-14. ブラウザでLaravelの表示を確認する  
+15. ブラウザでLaravelの表示を確認する  
 
 ブラウザに http://localhost/ でアクセスして表示されればOKです。
 ![](/images/laravel-vue-docker-introduction-20230828/2023-09-01-10-50-58.png)
