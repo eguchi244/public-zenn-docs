@@ -93,19 +93,19 @@ root@~# rm -rf vite.config.js
 
 6. jsファイルを修正する
 
-`resources/views/js/app.js` を下記のように修正します。
+`resources/js/app.js` を下記のように修正します。
 ```js:app.js の修正部分
 // import './bootstrap';
 require('./bootstrap');
 ```
-:::details [resources/views/js/app.js]の記述内容
-```js:[resources/views/js/app.js]
+:::details [resources/js/app.js]の記述内容
+```js:[resources/js/app.js]
 // import './bootstrap';
 require('./bootstrap');
 ```
 :::
 
-resources/views/js/bootstrap.js を下記のように修正します。
+`resources/views/js/bootstrap.js` を下記のように修正します。
 ```js:bootstrap.js の修正部分
 // import _ from 'lodash';
 window._ = require('lodash');
@@ -115,8 +115,8 @@ window.axios = require('axios');
  
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 ```
-:::details [resources/views/js/bootstrap.js]の記述内容
-```js:[esources/views/js/bootstrap.js]
+:::details [resources/js/bootstrap.js]の記述内容
+```js:[esources/js/bootstrap.js]
 // import _ from 'lodash';
 window._ = require('lodash');
 
