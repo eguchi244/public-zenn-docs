@@ -975,11 +975,11 @@ root@~LaravelTestProject # cp .env .env.example
 2. `.env.example` の設定を書き換える
 
 URL設定を `localhost` に変更する
-```js:.env
+```js:.env.example
 APP_URL=http://localhost
 ```
 DBの設定を変更する（DB_HOSTは localhost だと接続されない時がある）
-```js:.env
+```js:.env.example
 # 値は docker-compose.ymlファイルと同じにする
 DB_CONNECTION=mysql
 DB_HOST=db
@@ -989,7 +989,7 @@ DB_USERNAME=admin
 DB_PASSWORD=secret
 ```
 「④本番環境と開発環境」を実施している人は 不要な設定とファイルを削除する（後始末する）
-```js:.env
+```js:.env.example
 EXAMPLE_APP_KEY = 123456789ABCDEF
 ```
 
@@ -1070,7 +1070,7 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 root@~LaravelTestProject # cd config && rm example.php
 ```
 
-2. アクセスして表示を確認する
+5. アクセスして表示を確認する
 
 ブラウザに [http://localhost/hello](http://localhost/hello) で 開発環境（ローカル）です が表示されればOKです。
 Dcokerファイルに合わせたENV設定は問題ないことが確認できました。
@@ -1080,7 +1080,7 @@ Dcokerファイルに合わせたENV設定は問題ないことが確認でき�
 phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
 ![](/images/laravel-and-docker-introduction-20230822/2023-08-25-14-46-29.png)
 
-3. コンテナからログアウトする
+6. コンテナからログアウトする
 ```js:Terminal
 root@~config # exit
 ```

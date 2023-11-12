@@ -173,18 +173,6 @@ MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 
-次に `.env.example` を `.env` にコピーします。
-```js:Terminal
-root@~ # exit
-root@~ # docker-compose exec php bash
-root@~ # cd <プロジェクトディレクトリ>
-# .env.example を .env にコピー
-root@~ # cp .env.example .env
-# キージェネレートする
-root@~ # php artisan key:generate
-root@~ # exit
-```
-
 :::details .envの全体コード
 Dockerを使ってない方はこちらからコピーするのを避けてください。
 ```js:.env
@@ -245,6 +233,18 @@ MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
 MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 :::
+
+次に `.env.example` を `.env` にコピーします。
+```js:Terminal
+root@~ # exit
+root@~ # docker-compose exec php bash
+root@~ # cd <プロジェクトディレクトリ>
+# .env.example を .env にコピー
+root@~ # cp .env.example .env
+# キージェネレートする
+root@~ # php artisan key:generate
+root@~ # exit
+```
 
 これで「LaravelからViteを削除する」は完了です。
 
