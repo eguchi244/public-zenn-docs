@@ -105,7 +105,7 @@ require('./bootstrap');
 ```
 :::
 
-`resources/views/js/bootstrap.js` を下記のように修正します。
+`resources/js/bootstrap.js` を下記のように修正します。
 ```js:bootstrap.js の修正部分
 // import _ from 'lodash';
 window._ = require('lodash');
