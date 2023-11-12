@@ -7,7 +7,7 @@ PHPフレームワークは Laravel と CakePHP で人気を2分していまし�
 この書籍は そんなLaravelを習得してみたいという方のためのBOOKになっています。
 " # 本の紹介文
 topics: ["PHP", "Laravel", "初心者"] # タグ
-published: false # 公開設定
+published: true # 公開設定
 price: 0 # 有料の場合200〜5000
 toc_depth: 3 # 目次設定0~3で指定
 # 本に含めるチャプターを順番に並べましょう
