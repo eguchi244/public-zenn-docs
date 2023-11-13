@@ -1,10 +1,12 @@
 title: "Laravel入門 - Laravelを使ってみよう!"
 summary: "
-昨今ではPHPの性能向上に伴ってLaravelがスタンダードの地位を獲得しました。
+PHPフレームワークは Laravel と CakePHP で人気を2分していましたが、今では Laravel が主流となっています。
 
-PHPフレームワークは Laravel と CakePHP で人気を2分していましたが、今ではLaravelが主流となっています。
+Laravel がスタンダードの地位を獲得するのも時間の問題のように思われます。
 
-この書籍は そんなLaravelを習得してみたいという方のためのBOOKになっています。
+この書籍は そんな Laravel を習得してみたいという方のためのBOOKになっています。
+
+題材の「タスクリスト（To Do List）」のアプリケーションの開発を通してフレームワークとはどんなものか実際に手を動かして学んでいきましょう。
 " # 本の紹介文
 topics: ["PHP", "Laravel", "初心者"] # タグ
 published: true # 公開設定
