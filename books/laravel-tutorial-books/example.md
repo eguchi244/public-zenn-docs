@@ -10,5 +10,8 @@ title: "巻末資料 - [参考文献]"
 [【Laravel】データベースを作成しよう](https://qiita.com/hitochan/items/f5dc22ecbe24a350276a)
 [【PHP】Artisanってどんなもの？使い方は？そんな疑問を解決！](https://webukatu.com/wordpress/blog/11938/#i-3)
 [Laravel公式 - Database: Migrations](https://laravel.com/docs/9.x/migrations)
+[Tinkerを使ってデータベースを操作する【Laravel入門講座】](https://biz.addisteria.com/tinker/)
+[Laravelにおけるマイグレーションのしくみ](https://www.hypertextcandy.com/how-laravel-migration-works)
+
 
 ## 入門0X - [TEXT]
