@@ -14,4 +14,7 @@ title: "巻末資料 - [参考文献]"
 [Laravelにおけるマイグレーションのしくみ](https://www.hypertextcandy.com/how-laravel-migration-works)
 
 
+## 入門04 - [ToDoアプリのタスク一覧表示機能を作る]
+[【Laravel】データベースを元に戻す・削除する方法](https://blog-and-destroy.com/28984)
+
 ## 入門0X - [TEXT]
