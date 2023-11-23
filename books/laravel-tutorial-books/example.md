@@ -5,6 +5,14 @@ title: "巻末資料 - [参考文献]"
 この書籍に登場する参考記事をセクション毎に紹介しています。
 必要に応じて確認してください。
 
+## 引用元のチュートリアル記事
+この書籍は下記を参考に執筆させていただきました。
+参考サイトの記事は Laravel のチュートリアルとして非常に優れています。
+しかし、残念ながら Laravel のバージョンが低いため陳腐化してしまっています。
+そのため、この書籍を執筆することにしました。
+[入門Laravelチュートリアル](https://www.hypertextcandy.com/laravel-tutorial-introduction)
+
+
 ## 入門03 - [ToDoアプリのフォルダ一覧表示機能を作る]
 [Laravel 9.x ルーティング（名前付きルート）](https://readouble.com/laravel/9.x/ja/routing.html)
 [【Laravel】データベースを作成しよう](https://qiita.com/hitochan/items/f5dc22ecbe24a350276a)
