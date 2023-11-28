@@ -397,7 +397,7 @@ root@~LaravelTestProject # composer dump-autoload
 13. 念の為に権限を与える（「12」でエラーが出た場合の対応などのため）
 ```js:Terminal
 # PermissionDeniedエラーの対処方法
-root@~LaravelTestProject # chown www-data ./ -R
+root@~LaravelTestProject # chown ./www-data/storage -R
 ```
 
 14. ブラウザでLaravelの表示を確認する  
