@@ -17,3 +17,7 @@ title: "巻末資料 - [参考文献]"
 [Tinkerを使ってデータベースを操作する【Laravel入門講座】](https://biz.addisteria.com/tinker/)
 [Laravelにおけるマイグレーションのしくみ](https://www.hypertextcandy.com/how-laravel-migration-works)
 [【Laravel】データベースを元に戻す・削除する方法](https://blog-and-destroy.com/28984)
+[Laravel パスワードリセットメールのデザイン変更](https://qiita.com/donguriMAN/items/88318e6dbf9298dc2417)
+[[Laravel8]パスワードリセットメールのフッター部分の日本語化](https://aoisora-coffee.com/laravel/laravel8-password-reset-japanese)
+[Laravelのトランザクションとエラーハンドリグについて](https://www.happylifecreators.com/blog/20220513/)
+[Laravelでトランザクション処理のエラーハンドリングを行う方法](https://shinyasunamachi.com/blog/Laravelでトランザクション処理のエラーハンドリングを行う方法)
