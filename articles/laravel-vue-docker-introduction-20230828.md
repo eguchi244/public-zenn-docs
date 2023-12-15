@@ -20,7 +20,6 @@ https://zenn.dev/eguchi244_dev/articles/laravel-and-docker-introduction-20230822
 - HTML&CSS, PHPをある程度は理解している
 - Javascriptをある程度は理解している
 - Dockerをある程度は理解している
-- Laravelをある程度は理解している
 - Linuxコマンドに触れたことがある
 
 これらについては詳細に解説することはありませんのでご承知ください。
@@ -46,6 +45,7 @@ LaravelではVue.jsを導入しやすく、LaravelとVue.jsの組み合わせは
 - PHP：PHP 8.0.x
 - Nginx：Nginx latest
 - Node.js：node 14.18-alpine
+- mail：mailhog latest
 :::
 【ディレクトリ構成】
 ```js:
@@ -61,6 +61,17 @@ Laravel9-Vue-TestPJ（ルートディレクトリ）※ 任意の名前でOK
 └── src 
     └──  LaravelVueProject（Laravelのプロジェクトディレクトリ）※ 任意の名前でOK
 ```
+
+:::message alert
+Laravel Mixについて
+
+特段の事情がない限りは公式が推奨する「Vite」を使うべきでしょう。それでも本記事でLaravel Mixを扱うのは、Viteであればいくらでも情報が見つかるのに対して、Laravel Mixに戻して使うケースの情報が少ないからです。これにより古い構成に対応できるようになるためです。注意点はデプロイサーバーなどがViteにしか対応してないなど環境にされることもあることです。慎重に調査した上で技術選定していきましょう。
+:::
+:::message alert
+Laravel/ui（認証系ライブラリ）について
+
+特段の事情がない限りは公式が推奨する「breeze,jetstream」を使うべきでしょう。それでも本記事で「Laravel/ui」を扱うのは、LaravelMixの時と同様に古い構成に対応できようになるためです。
+:::
 
 # Vue.jsとは
 Vue.jsは、アプリケーション開発において、UIを構築するためのJavaScriptフレームワークです。開発者のEvan You氏が提唱したプログレッシブ・フレームワーク（段階的に適用できる構造）という概念のもとで設計されています。
@@ -178,6 +189,11 @@ volumes:
 名前付きボリュームを使用する理由
 
 ボリュームのマウント先をホストディレクトリにする書き方をすると環境によっては コンテナ内のユーザーが持っている権限とマウントされたディレクトリの権限が一致せずコンテナが立ち上がらないことがあるからです。
+:::
+:::message
+mailhogについて
+
+mailhogはメールサーバーを構築するライブラリーです。LaravelとVue.jsを構築することには関係ありません。メール機能を実装しない場合は必要ないのでこの部分は削除してください。
 :::
 
 3. ルートディレクトリ直下に `¥docker` `¥src` を作成する
@@ -501,14 +517,14 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 下記の記事を参照して Vite から Laravel Mix に戻してください。
 https://zenn.dev/eguchi244_dev/articles/restore-laravel-vite-to-mix-20230829
 
+:::message alert
+Webpack(Laravel Mix) と Vite について
+
+Laravel9以降では、フロントエンド(JS,CSS)のビルドツールについて、従来のLaravel Mix から Vite へと置き換わりました。開発要件によって Laravel Mix と Vite を選択することになります。今回は 「Laravel Mix に戻す方法」を採用しますが、基本的にはViteを推奨します。
+:::
+
 Vite での環境構築に興味がある方は下記が参考になりますのでご覧ください。
 https://reffect.co.jp/laravel/laravel9_vite/
-
-:::message alert
-Webpack(Laravel Mix) と vite について
-
-Laravel9以降では、フロントエンド(JS,CSS)のビルドツールについて、従来のLaravel Mix から Vite へと置き換わりました。開発要件によって Laravel Mix と Vite を選択することになります。今回は 「Laravel Mix に戻す方法」を採用します。
-:::
 
 これで「②Vite から Laravel Mix に戻す」は完了です。
 
@@ -526,10 +542,16 @@ root@~/www# cd LaravelVueProject
 root@~LaravelVueProject # php artisan key:generate
 ```
 
-1. laravel/uiのインストール（認証系のライブラリ）
+1. laravel/uiのライブラリをインストール（認証系ライブラリ）
 ```js:Terminal
 root@~LaravelVueProject # composer require laravel/ui
 ```
+:::message alert
+認証系のライブラリについて
+
+今回は`laravel/ui`を採用していますが、`breeze` または `jetstream` を採用することを推奨します。公式が`breeze` または `jetstream` を推奨しているからです。
+:::
+
 2. laravel/ui vueのインストール（フロントエンドのベースコード）
 
 vueスカホールドのインストールをします。
@@ -583,6 +605,13 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css');
 ```
 :::
+
+このタイミングで復活したVite絡みのファイルも消しておきましょう。
+```js:Terminal
+root@~LaravelVueProject # npm remove vite
+root@~LaravelVueProject # npm remove laravel-vite-plugin
+root@~LaravelVueProject # rm -rf vite.config.js
+```
 
 6. Vueコンポーネントを `welcome.blade.php` に取り込む
 
