@@ -7,15 +7,29 @@ published: true # 公開に指定する
 ---
 # はじめに
 Laravel9以降のバージョンでは、フロントエンド(JS,CSS)のビルドツールが、従来のLaravel MixからViteへと置き換わりました。
+会社やプロジェクトの方針によってはLaravel Mixを使用するケースもあるかと思います。
 
 この記事は、LaravelのViteをLaravel Mixに戻したいという方のためのものです。
 
 この記事は下記のサイトを参考にして作成されています。
 https://biz.addisteria.com/remove_vite/
 
-なお、Vue.jsなどを使用している場合は追加の設定が必要な点にご留意ください。
+> Laravel MixとViteの技術選定について
 
-もしも、Viteを使用して Vue.js などを使用する場合は下記の記事が参考になります。
+特段の事情がない限りはViteを選択することをお勧めします。
+サーバーもライブラリーもデフォルトはViteを前提にするように切り替わってきています。
+Viteであればそのまま動作させれることが増えてくるでしょう。
+Laravel Mixだと「特別な対処」をする必要が出てくることが増えてきます。
+例えば、Render.comなどのデプロイサーバーはViteを前提にしています。
+Viteであれば公式の手順通りに実施して公開することができます。
+一方でMixだとViteに戻す必要性が出てきてしまいます。
+このようにご利用する環境に合わせて技術選定をする必要があります。
+
+> ViteでVue.jsやReactを使用する場合
+
+なお、Vue.jsやReactなどを使用している場合は追加の設定が必要な点にご留意ください。
+
+もしも、Viteを使用してVue.jsやReactなどを使用する場合は下記の記事が参考になります。
 ご興味のある方はこちらも選択するのもありだと思います。
 https://reffect.co.jp/laravel/laravel9_vite/
 https://reffect.co.jp/laravel/laravel9_vite_react/
