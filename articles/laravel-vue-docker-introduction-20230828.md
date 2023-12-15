@@ -70,7 +70,7 @@ Laravel Mixについて
 :::message alert
 Laravel/ui（認証系ライブラリ）について
 
-特段の事情がない限りは公式が推奨する「breeze,jetstream」を使うべきでしょう。それでも本記事で「Laravel/ui」を扱うのは、LaravelMixの時と同様に古い構成に対応できようになるためです。
+特段の事情がない限りは公式が推奨する「breeze,jetstream」を使うべきでしょう。それでも本記事で「Laravel/ui」を扱うのは、LaravelMixの時と同様に古い構成にも対応できようになるためです。
 :::
 
 # Vue.jsとは
