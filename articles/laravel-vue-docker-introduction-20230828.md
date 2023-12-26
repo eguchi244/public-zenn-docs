@@ -38,6 +38,17 @@ LaravelではVue.jsを導入しやすく、LaravelとVue.jsの組み合わせは
 具体的には以下の構成で環境構築をします。
 
 :::message
+【前提条件】
+PCに下記がインストールと設定がされていることが前提です。
+
+- Linux/Unix開発環境
+    - Windows ： WSL2（Ubuntu）
+- Docker, Docker-compose
+- composer
+- npm
+:::
+
+:::message
 【環境構築の目標】
 - フレームワーク：Laravel Framework 9.x.x (LaravelMix)
 - データベース：MYSQL 5.7.36
