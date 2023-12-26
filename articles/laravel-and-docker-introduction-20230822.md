@@ -555,7 +555,6 @@ Laravelでは、非常に重要な `.env` ファイルは Githib などで共有
 【phpMyAdminのTOPページ】
 ブラウザに [http://localhost:8080/](http://localhost:8080/) で アクセスして表示されればOKです。 
 phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-14-46-29.png)
 
 16. コンテナからログアウトする
 ```js:Terminal
