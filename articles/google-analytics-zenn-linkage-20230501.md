@@ -1,6 +1,6 @@
 ---
 title: "ZennにGoogleAnalyticsを導入する"
-emoji: "😽"
+emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Zenn", "GoogleAnalytics"]
 published: true # 公開に指定する
