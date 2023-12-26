@@ -10,31 +10,34 @@ published: true # 公開に指定する
 Dockerを使って少ない労力で環境構築できるようになりたい方のための記事です。
 ![](/images/laravel-and-docker-introduction-20230822/2023-08-22-13-10-28.png =500x)
 
+## 記事の改訂について
+Laravelの環境設定に関する詳細な解説は下記の記事に移転しました。
+「LaravelをDockerで簡単に構築すること」の趣旨に反すると判断したからです。
+ご理解のほど宜しくお願い致します。
+https://zenn.dev/eguchi244_dev/articles/laravel-env-config-setting
+
 # 前提条件
 この記事では以下の知識を持つことを前提にしています。
 
 - HTML&CSS, PHPをある程度は理解している
-- Dockerをある程度は理解している
 - Linuxコマンドに触れたことがある
 
 これらについては詳細に解説することはありませんのでご承知ください。
 
-# 目的＆内容
-LaravelをDockerで構築して以下の内容を実施することを目的とします。
-
-1. DockerでLaravel9を導入する
-2. テストページを作成する
-3. 設定ファイルを作成する
-4. 本番環境と開発環境を切り替える
-5. 本格的なENV設定をする
-
-このようにLaravelのテストページを表示して **終わり** にしないための記事です。
-動かして終わりではなく環境設定が出来てこその「環境構築」です。
-これを機に環境設定の基礎と本格的な設定を身につけていきましょう。
-
 # 環境構築の目標
 環境構築の目標は「Dockerによる仮想環境で、Laravelを使用できるようにする」ことです。
 具体的には以下の構成で環境構築をします。
+
+:::message
+【前提条件】
+PCに下記がインストールと設定がされていることが前提です。
+
+- Linux/Unix開発環境
+    - Windows ： WSL2（Ubuntu）
+- Docker, Docker-compose
+- composer
+- npm
+:::
 
 :::message
 【環境構築の目標】
@@ -97,7 +100,51 @@ Laravelは下記の11個の特徴を持ったフレームワークです。
 
 https://www.acrovision.jp/career/?p=2776
 
-# ①Laravelを導入する
+## MVCモデルとは
+Laravel で採用されている **MVCモデル** を確認しておきましょう。
+
+**MVCモデル** とは、プログラムを役割ごとにModel（モデル）・View（ビュー）・Controller（コントローラー）の3つに分けて管理するソフトウェア設計モデルのことです。
+
+**Model（モデル）とは** 
+システム内部のビジネスロジックを担当する部分です。
+
+DBとデータをやり取りしたり、データの登録・更新・削除などの処理を行います。
+
+DBから取得したデータや処理の結果はControllerに送ります。
+
+**View（ビュー）とは** 
+表示や入出力などのユーザーが実際に見る画面（UI）を担当する部分です。 
+
+リクエストデータをControllerに送ったり、Controllerからレスポンスデータを受け取って画面に表示したりします。
+
+**Controller（コントローラー）とは**
+ユーザーの入力に基づいてモデルとビューを制御（橋渡し）する役目を担う部分です。
+
+ユーザーが入力した情報に基づいて、モデルへデータを取り出す指示を、ビューにはモデルで取り出したデータを元に画面を表示する指示を出します。
+
+詳しく知りたい方は下記のサイトが分かり易くておすすめです。
+https://system-kaihatu.com/archives/3204
+
+:::message
+ModelとViewの違い
+
+Model : データの管理や保存、外部との入出力、内部的な処理を担当する。
+View : 利用者に対する画面表示や入力・操作の受け付けなど、外部的な処理を担当する。
+:::
+:::message
+ModelとControllerの違い
+
+Model : データの管理や保存、外部との入出力、内部的な処理を担当する。
+Controller : ModelとViewの制御（橋渡し）を担当する。
+:::
+:::message
+ControllerとViewの違い
+
+View : 表示、入出力の処理を担当する。
+Controller : ModelとViewの制御（橋渡し）を担当する。
+:::
+
+# Laravelを導入する
 さっそくLaravelを導入していきましょう！下記の手順を実施してください。
 
 1. ルートディレクトリを作成する  
@@ -400,613 +447,33 @@ root@~LaravelTestProject # composer dump-autoload
 root@~LaravelTestProject # chown ./www-data/storage -R
 ```
 
-14. ブラウザでLaravelの表示を確認する  
+14. `.env` と `.env.example` の環境設定をする
 
-ブラウザに http://localhost/ でアクセスして表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-23-14-14-40.png)
+ここで `docker-compose` に合わせて `.env` の設定を書き換えておきます。
 
-15. コンテナからログアウトする
-```js:Terminal
-root@~LaravelTestProject # exit
-```
-
-これで「**①Laravelを導入する**」は完了です。
-
-とりあえず、**Laravelを起動させて表示を確認する** ことを目的とする場合はこれで終わりです。
-まずは、お疲れ様でした。
-
-このまま データーベース と phpMyAdmin の設定を済ませて開発に進みたい方は「**⑤本格的なENV設定**」までスキップしてください。
-
-# ②テストページを作成する
-次はテストページを作成してみましょう。目標は Hello world を表示させることです。
-
-## MVCモデルとは
-テストページを作成する前に Laravel で採用されている **MVCモデル** を確認しておきましょう。
-
-**MVCモデル** とは、プログラムを役割ごとにModel（モデル）・View（ビュー）・Controller（コントローラー）の3つに分けて管理するソフトウェア設計モデルのことです。
-
-**Model（モデル）とは** 
-システム内部のビジネスロジックを担当する部分です。
-
-DBとデータをやり取りしたり、データの登録・更新・削除などの処理を行います。
-
-DBから取得したデータや処理の結果はControllerに送ります。
-
-**View（ビュー）とは** 
-表示や入出力などのユーザーが実際に見る画面（UI）を担当する部分です。 
-
-リクエストデータをControllerに送ったり、Controllerからレスポンスデータを受け取って画面に表示したりします。
-
-**Controller（コントローラー）とは**
-ユーザーの入力に基づいてモデルとビューを制御（橋渡し）する役目を担う部分です。
-
-ユーザーが入力した情報に基づいて、モデルへデータを取り出す指示を、ビューにはモデルで取り出したデータを元に画面を表示する指示を出します。
-
-詳しく知りたい方は下記のサイトが分かり易くておすすめです。
-https://system-kaihatu.com/archives/3204
-
-:::message
-ModelとViewの違い
-
-Model : データの管理や保存、外部との入出力、内部的な処理を担当する。
-View : 利用者に対する画面表示や入力・操作の受け付けなど、外部的な処理を担当する。
-:::
-:::message
-ModelとControllerの違い
-
-Model : データの管理や保存、外部との入出力、内部的な処理を担当する。
-Controller : ModelとViewの制御（橋渡し）を担当する。
-:::
-:::message
-ControllerとViewの違い
-
-View : 表示、入出力の処理を担当する。
-Controller : ModelとViewの制御（橋渡し）を担当する。
-:::
-
-## テストページを作成する
-**【目標】hello world を表示させる**
-それではテストページを作成してきましょう。下記の手順を実施してください。
-
-0. コンテナにログインする
-```js:Terminal
-~Laravel9-Docker-TestPJ $ docker-compose exec php bash
-root@~/var/www# cd LaravelTestProject
-```
-
-1. **ルーティングを設定する**
-
-ルーティングは、どのURLに対してどのコードを実行するかを定義する仕組みです。
-
-[LaravelTestProject\routes\web.php]を下記の通りに編集します。
-:::details web.php の記述内容
-**routes/web.phpとは**
-`routes/web.php` ファイルで、Laravelプロジェクト内のルーティングを定義します。このファイルには、ウェブアプリケーションの異なるページやアクションに対するURLパスと、それに対応する処理を指定します。
-
-具体的には `routes/web.php` ファイルで ルート（Route）を定義します。ルートは、HTTPメソッド（GET、POST、PUT、DELETEなど）とURLパスを指定し、それに対応するコントローラーのアクションやクロージャを関連付けます。例えば、特定のURLにアクセスしたときにどのコントローラーのアクションを実行するかを定義します。
-
-
-```js:routes/web.php
-<?php
-
-use Illuminate\Support\Facades\Route;
-/* HelloController クラスの名前空間のインポート文を追加する */
-use App\Http\Controllers\HelloController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-/* Laravel welcome Page */
-Route::get('/', function () {
-    return view('welcome');
-});
-/* hello world page（ルーティングを追加する） */
-Route::get('/hello', [HelloController::class,"index"]);
-```
-:::message
-解説 - use ~\HelloController;
-
-ここでは名前空間でのインポート文を追加しています。これは、この後に作成する コントローラー（`HelloController`）を使いたいので先に関連付けをしているのです。
-:::
-
-2. **コントローラーを作成して編集する**
-
-MVCの**Controller（コントローラー）とは** ユーザーの入力に基づいてモデルとビューを制御（橋渡し）する役目を担う部分です。ユーザーが入力した情報に基づいて、モデルへデータを取り出す指示を、ビューにはモデルで取り出したデータを元に画面を表示する指示を出します。
-
-まずはターミナルでコントローラーを作成します。
-```js:Terminal
-# コントローラーを作成する
-root@~LaravelTestProject# php artisan make:controller HelloController
-```
-
-次に作成した[LaravelTestProject\app\Htttp\Controllers\HelloController.php]を編集します。
-:::details HelloController.php の記述内容
-```js:HelloController.php
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-class HelloController extends Controller
-{
-    // hello world page（メソッドを追加する）
-    public function index()
-    {
-        // view（hello.blade.php）を呼び出す処理
-        return view('hello');
-    }
-}
-```
-:::
-
-3. **bladeファイルの作成と編集をする**
-
-ブレード（Blade）とは、Laravelでビュー（View）を作るために用意されたテンプレートエンジン です。
-
-MVCの **View（ビュー）とは** 表示や入出力などのユーザーが実際に見る画面（UI）を担当する部分です。 リクエストデータをControllerに送ったり、Controllerからレスポンスデータを受け取って画面に表示したりします。
-
-まずはターミナルでブレードファイルを作成します。
-
-```js:Terminal
-# hello.blade.php を作成する
-root@~LaravelTestProject# cd resources/views && touch hello.blade.php
-```
-
-次に作成した[resources/views/hello.blade.php]を編集します。
-:::details hello.blade.php の記述内容
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>My First Page</title>
-</head>
-<body>
-    <h2>Hello World</h2>
-</body>
-</html>
-```
-:::
-
-4. **アクセスして表示を確認する**  
-
-ブラウザに http://localhost/hello でアクセスして「Hello World」が表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-13-05-12.png =500x)
-
-5. **コンテナからログアウトする**
-```js:Terminal
-root@~views#  # exit
-```
-
-これで「**②テストページを作成する**」は完了です。
-
-ここから先のセクションについては環境設定の理解を深めるためのものです。
-環境設定の理解を深めたいという方はもう一踏ん張りですので頑張っていきましょう。
-
-# ③設定ファイルを作成する
-**Laravelでは、アプリ本体は configファイルを経由して .envファイルの情報を読み込みます。**
-
-この理由は、`.env` ファイル の設定情報を直接読み込むのは危険だからです。
-
-直接 `.env` ファイルを読み込んだ方が手っ取り早いように思えますが問題が起きます。例えば、コンフィギュレーションキャッシュ（`config:cache`）というコマンドを使うと `.env` ファイルを読み込めなくなるのは良くあることです。とても危険ですよね。
-
-configファイルを経由していれば 「`.env` ファイルを読み込めなくなる」ようなことは起きません。これが`config` 経由で情報を読み込む理由です。
-
-
-## .envファイルとconfigファイル
-`.env` ファイルと `config` ファイルでは役割が違います。どちらも似たようなものに感じるかもしれませんが実は違うのです。それぞれの違いを見ていきましょう。
-
-### .envファイルとは
-`.env` ファイルは環境設定ファイルとも呼ばれます。envは、environment（環境）の省略です。
-
-このファイルには データベースの名前、APIキー、メール送信のための情報 などを追加します。登録された情報は環境によって変える可能性があります。たとえば開発環境でのデータベースと本番環境でのデータベースは変更される場合などです。
-
-### configファイルとは
-`config` は、configuration（構造、設定）の省略です。
-
-`config`の内容は環境が変わっても変わりません。つまり、「環境」が変わっても「構造や設定」が維持されるのです。これが`config` 経由で情報を読み込む理由です。
-この `config` ファイルはconfigフォルダの中に入っています。
-
-
-.envファイルとconfigファイルの役割と、なぜこの流れが必要なのかは、下記のサイトで詳しく解説されていますので一読しておいてください。
-https://biz.addisteria.com/env_config/
-
-## .env & config の基礎と理解
-`.env` & `config` の基礎を理解するには、実際に設定ファイルを書いて動かすのが一番です。
-
-ここでは、エラー画面を「500 | Server Error」に変更することを目標にしていきます。そのために、**.envファイルにあるAPP_DEBUGの値を変えてみる**ことにします。ついでに `config` にも触れてみましょう。
-
-`.env` ファイル内の APP_DEBUG はデフォルトでは true に設定されています。APP_DEBUG はLaravelにアクセスしている時にプログラムの記述ミスやバグがあった場合に原因を究明するために必要となるエラーメッセージの詳細情報を出力してくれます。
-
-.envファイルの基礎を理解するのはとても難しいです。下記のサイトを参照しながら「設定ファイルを作成する」ことをおすすめします。
-https://reffect.co.jp/laravel/env-file-basic-understanding/
-
-## 設定ファイルを作成する
-**【目標】エラー画面を「500 | Server Error」に変更する**
-
-0. コンテナにログインする
-```js:Terminal
-~Laravel9-Docker-TestPJ $ docker-compose exec php bash
-root@~/var/www# cd LaravelTestProject
-```
-
-1. bladeファイルにエラーコードに書き換える
-:::details resources/views/hello.blade.php の記述内容
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>500 | Server Error</title>
-</head>
-<body>
-    <h1>Laravel ENV FILE</h1>
-    {{-- わざとスペルミスしています --}}
-    <p>{{ $somethig }}</p>
-    
-</body>
-</html>
-```
-:::
-2. コントローラーを書き換える
-:::details [app/Http/Controllers/HelloController.php] の記述内容
-このコントローラーからViewの `<p>{{ $somethig }}</p>` に値を渡します。
-```js:HelloController.php
-<?php
-
-namespace App\Http\Controllers;
-
-use Illuminate\Http\Request;
-
-class HelloController extends Controller
-{
-    // hello world page（メソッドを追加する）
-    public function index()
-    {
-        /* view（hello.blade.php）を呼び出す処理 */
-        return view('hello',["something"=>"FBK"]);
-    }
-}
-```
-:::message
-解説
-
-`hello.blade.php`でわざとスペルミスしているので、このコントローラーから値を渡せなくなっています。エラーを出さないようにするには `hello.blade.php` のスペルをコントローラーの `something` と一致するように修正する必要があります。
-
-:::
-3. ブラウザでLaravelの表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) でエラーが表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-18-43-08.png)
-
-4. `.env` ファイルの設定を変更する
-```js:.env
-APP_DEBUG=false
-```
-5. 設定変更を反映させるためキャッシュをクリアする
-`.env` ファイルは一度ロードされてキャッシュされるとenvヘルパー関数を実行しても値はNULLになり画面にはなにも表示されません。その場合は `php artisan config:clear` を実行してください。
-```js:Terminal
-root@~LaravelTestProject # php artisan config:clear
-```
-:::message alert
-重要
-
-.env ファイルを書き換えた場合は、`php artisan config:clear` コマンドを実行してください。
-:::
-6. アクセスして表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) でエラーが表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-18-51-01.png)
-:::message alert
-重要 - APP_DEBUGの使い分け
-
-本番環境ではこのように開発中のコードが見えない形でエラーを表示させることが必須です。
-この機会にしっかりと覚えておきましょう。
-
-本番環境 → APP_DEBUG=false
-開発環境 → APP_DEBUG=true
-
-必要に応じでこのように書き換えましょう。
-:::
-
-最後にエラーを出さないようにしてみましょう。
-:::details resources/views/hello.blade.php の記述内容
-コントローラーの `something` と一致するようにスペルを修正します。
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>500 | Server Error</title>
-</head>
-<body>
-    <h1>Laravel ENV FILE</h1>
-    {{-- スペルミスを修正する --}}
-    <p>{{ $something }}</p>
-    
-</body>
-</html>
-```
-:::
-
-ブラウザに [http://localhost/hello](http://localhost/hello) で FBK が表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-20-51-08.png)
-
-7. env関数を使ってみる（.envの現在の値を確認する）
-
-[resources/views/hello.blade.php] を書き換えてください。
-:::details resources/views/hello.blade.php の記述内容
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>500 | Server Error</title>
-</head>
-<body>
-    <h1>Laravel ENV FILE</h1>
-    <p>{{ env('DB_CONNECTION')}}</p>
-</body>
-</html>
-```
-:::
-8. アクセスして表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) で mysql が表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-19-06-44.png)
-9. config関数を使ってみる
-
-[resources/views/hello.blade.php] を書き換えてください。
-:::details resources/views/hello.blade.php の記述内容
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>500 | Server Error</title>
-</head>
-<body>
-    <h1>Laravel ENV FILE</h1>
-    <p>{{ config('database.default') }}</p>
-</body>
-</html>
-
-```
-:::
-10. アクセスして表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) で mysql が表示されればOKです。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-19-06-44.png)
-11. 独自configファイルを作成して編集する
-
-まずは、`config/example.php` を作成します。
-```js:Terminal
-root@~LaravelTestProject # cd config && touch example.php
-```
-
-次に、`config/example.php` を編集します。
-:::details config/example.php の記述内容
-```js:example.php
-<?php
-
-return [
-    // テスト用のconfigファイルのkey設定をする
-    'key' => env('EXAMPLE_APP_KEY', 'EX_APP_KEY'),
-];
-```
-:::
-
-次に、`.env` ファイルを編集します。
-:::details .env の記述内容
-.env の末尾に `EXAMPLE_APP_KEY` を追加してください。
-```js:.env
-EXAMPLE_APP_KEY = 123456789ABCDEF
-```
-:::
-
-次に、[resources/views/hello.blade.php] を書き換えてください。
-:::details resources/views/hello.blade.php の記述内容
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>500 | Server Error</title>
-</head>
-<body>
-    <h1>Laravel ENV FILE</h1>
-    <p>{{ env('EXAMPLE_APP_KEY')}}</p>
-    <p>{{ config('example.key')}}</p>
-</body>
-</html>
-```
-:::
-12. アクセスして表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) で 123456789ABCDEF が表示されればOKです。  
-無事に `.env` と `config` の設定が反映されていることが分かります。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-24-19-33-38.png)
-
-13. 開発中なので`.env` ファイルの設定を戻す
-```js:.env
-APP_DEBUG=true
-```
-
-14. コンテナからログアウトする
-```js:Terminal
-root@~LaravelTestProject # exit
-```
-
-これで「**③設定ファイルを作成する**」は完了です。
-
-ここまでの学習で`.env` と `config` について理解が深まったのではないでしょうか。
-次回からは、本番環境と開発環境を切り替えを学んでいきます。
-
-# ④本番環境と開発環境
-
-0. コンテナにログインする
-```js:Terminal
-~Laravel9-Docker-TestPJ $ docker-compose exec php bash
-root@~/var/www# cd LaravelTestProject
-```
-
-1. 現在の設定値を確認する
-```js:Terminal
-root@~LaravelTestProject # php artisan env
-[中略]
-    # local（開発）環境であることが分かります
-   INFO  The application environment is [local].  
-```
-2. 本番環境に切り替える
-
-まずは `.env` の下記の部分を書き換えてください。
-```js:.env
-APP_ENV=production
-```
-:::message 
-それぞれのアプリケーション環境設定
-
-`APP_ENV` には以下の3つの環境を設定することが一般的です。
-- 開発環境（ローカル） → local
-- 開発環境 → development
-- 本番環境 → production
-:::
-
-次に、[resources/views/hello.blade.php] を書き換えます。
-:::details resources/views/hello.blade.php の記述内容
-```js:hello.blade.php
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>500 | Server Error</title>
-</head>
-<body>
-    <h1>Laravel ENV FILE</h1>
-
-    <?php
-
-        if (App::environment('local')) {
-            // 環境が local(開発）の場合
-            echo "開発環境（ローカル）です";
-        }elseif(App::environment('development')) {
-            // 環境が development(開発）の場合
-            echo "開発環境です";
-        }elseif(App::environment('production')) {
-            // 環境が production(本番）の場合
-            echo "本番環境です";
-        }else{
-            // その他の環境
-            echo "その他の環境です";
-        }
-
-    ?>
-</body>
-</html>
-```
-:::
-
-3. アクセスして表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) で 本番環境です が表示されればOKです。  
-その他にも`.env` の `APP_ENV` の値を 色々（`local`, `development`, `production`）と変えてみましょう。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-12-04-27.png)
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-12-12-31.png)
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-12-12-57.png)
-
-4. `.env` の設定を元に戻す
-```js:.env
-APP_ENV=local
-```
-
-5. コンテナからログアウトする
-```js:Terminal
-root@~LaravelTestProject # exit
-```
-
-これで「**④本番環境と開発環境**」は完了です。
-
-ここまでの学習で 本番環境と開発環境の切り替え について理解が深まったのではないでしょうか。
-次回からは、Laravelのための本格的なENV設定を学んでいきます。
-
-# ⑤本格的なENV設定をする
-Laravelは、フルスタックフレームワークです。フロントエンドもバックエンドも網羅したタイプのフレームワークです。今まで何も設定していなくても動いていたのはデフォルトの設定の範囲で問題のない機能の実装でしかなかったからです。
-
-実際のところ、このセクションで行う内容も初期設定で動いてしまいます。しかし、それでは Dokcerファイル に合わせた設定に触れずに終わってしまいます。
-
-例えば、Laravel側でテーブル定義をしてテーブルを作成する機能をマイグレーションと呼びます。この機能を使うには適切に `.env` を設定しておかないといけません。そのためにも「Dockerに合わせたENV設定」をしっかりと身につけておきたいところです。
-
-ここでは理解を深めるためにも 「Dockerに合わせたENV設定」 を学んでいきます。
-
-## 本格的なENV設定をする
-**【目標】hello world を表示させる, phpMyAdminに接続する**
-さっそく本格的なENV設定をしていきましょう。
-
-今までの作業では直接 `.env` に記述してきましたが、ここからは `.env.example`に記述していきます。その理由は巻末の「超重要」のトピックをご覧ください。
-
-この作業では `phpMyAdmin` は必須なので念のために再ビルドを実行しておきます。
-特にGithubでコード管理してる方などは `phpMyAdmin` はリモートブランチに `push` されないので陥りがちです。
-```js:Terminal
-# Dockerで再ビルドする
-~Laravel9-Docker-TestPJ $ docker-compose up -d
-```
-
-0. コンテナにログインする
-```js:Terminal
-~Laravel9-Docker-TestPJ $ docker-compose exec php bash
-root@~/var/www# cd LaravelTestProject
-```
-
-1. `.env` を `.env.example` にコピーする
-```js:Terminal
-root@~LaravelTestProject # cp .env .env.example
-```
-
-
-2. `.env.example` の設定を書き換える
-
-URL設定を `localhost` に変更する
-```js:.env.example
-APP_URL=http://localhost
-```
-DBの設定を変更する（DB_HOSTは localhost だと接続されない時がある）
-```js:.env.example
-# 値は docker-compose.ymlファイルと同じにする
-DB_CONNECTION=mysql
-DB_HOST=db
+`.env.example` のDBの設定を下記のように書き換えてください。
+```js: .env.example（書き換え箇所）
+DB_CONNECTION=db
+DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
 DB_PASSWORD=secret
 ```
-「④本番環境と開発環境」を実施している人は 不要な設定とファイルを削除する（後始末する）
-```js:.env.example
-EXAMPLE_APP_KEY = 123456789ABCDEF
-```
 
-3. `.env.example` を `.env` にコピーする
-
-理由は後述しますが `.env.example` に記述して `.env` に反映させるのは開発のセオリーです。
+次に `.env.example` を `.env` にコピーします。
 ```js:Terminal
-root@~LaravelTestProject # cp .env.example .env
+# .env.example を .env にコピー
+root@~LaravelReactProject # cp .env.example .env
 # キージェネレートする
-root@~LaravelTestProject # php artisan key:generate
+root@~LaravelReactProject # php artisan key:generate
 ```
 
-:::details .env.example の全体コード
-```js:.env.example
+:::details  .env.example の全体コード
+```js:
 APP_NAME=Laravel
 APP_ENV=local
-APP_KEY=base64:uDselircjsSAkOadnmIwVxEsTnkjQKjncsDmbLgA05s=
+APP_KEY=
 APP_DEBUG=true
 APP_URL=http://localhost
 
@@ -1014,8 +481,8 @@ LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
 
-DB_CONNECTION=mysql
-DB_HOST=db
+DB_CONNECTION=db
+DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
@@ -1065,27 +532,6 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 :::
 
-4. configフォルダの不要な example.php を削除する
-```js:Terminal
-root@~LaravelTestProject # cd config && rm example.php
-```
-
-5. アクセスして表示を確認する
-
-ブラウザに [http://localhost/hello](http://localhost/hello) で 開発環境（ローカル）です が表示されればOKです。
-Dcokerファイルに合わせたENV設定は問題ないことが確認できました。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-12-12-57.png)
-
-ブラウザに [http://localhost:8080/](http://localhost:8080/) で phpMyAdmin が表示されればOKです。 
-phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-14-46-29.png)
-
-6. コンテナからログアウトする
-```js:Terminal
-root@~config # exit
-```
-
-### .env.example について
 :::message alert
 超重要
 
@@ -1098,9 +544,23 @@ Laravelでは、非常に重要な `.env` ファイルは Githib などで共有
 もっとセキュリティを高める場合は `.env.example` は雛形に徹して 環境情報の値を安全に共有して書き換えていくことになります。
 :::
 
-これで「**⑤本格的なENV設定をする**」は完了です。
+15. ブラウザで表示を確認する  
 
-ここまでの学習で Dockerを使ったENV設定 や データーベースを使うためのENV設定の方法を理解できたと思います。
+【Laravelのウェルカムページ】
+ブラウザに http://localhost/ でアクセスして表示されればOKです。
+![](/images/laravel-and-docker-introduction-20230822/2023-08-23-14-14-40.png)
+
+【phpMyAdminのTOPページ】
+ブラウザに [http://localhost:8080/](http://localhost:8080/) で アクセスして表示されればOKです。 
+phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
+![](/images/laravel-and-docker-introduction-20230822/2023-08-25-14-46-29.png)
+
+16. コンテナからログアウトする
+```js:Terminal
+root@~LaravelTestProject # exit
+```
+
+これで「**Laravelを導入する**」は完了です。
 
 # 後始末をする
 今回で使ったDockerコンテナなど学習用のものは普段は必要ないので消してしまいましょう。

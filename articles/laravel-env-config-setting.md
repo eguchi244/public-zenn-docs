@@ -24,7 +24,6 @@ Laravelを使用する場合にENVファイルとConfigファイルは触れる�
 この記事では以下の知識を持つことを前提にしています。
 
 - HTML&CSS, PHPをある程度は理解している
-- Dockerをある程度は理解している
 - Linuxコマンドに触れたことがある
 
 これらについては詳細に解説することはありませんのでご承知ください。
@@ -46,6 +45,17 @@ LaravelのENVとConfigの違いを理解することを目的とします。
 # 環境構築の目標
 環境構築の目標は「Dockerによる仮想環境で、Laravelを使用できるようにする」ことです。
 具体的には以下の構成で環境構築をします。
+
+:::message
+【前提条件】
+PCに下記がインストールと設定がされていることが前提です。
+
+- Linux/Unix開発環境
+    - Windows ： WSL2（Ubuntu）
+- Docker, Docker-compose
+- composer
+- npm
+:::
 
 :::message
 【環境構築の目標】
@@ -965,7 +975,7 @@ Laravelは、フルスタックフレームワークです。フロントエン�
 今までの作業では直接 `.env` に記述してきましたが、ここからは `.env.example`に記述していきます。その理由は巻末の「超重要」のトピックをご覧ください。
 
 この作業では `phpMyAdmin` は必須なので念のために再ビルドを実行しておきます。
-特にGithubでコード管理してる方などは `phpMyAdmin` はリモートブランチに `push` されないので陥りがちです。
+特にGithubでコード管理してる方などは `phpMyAdmin` はリモートブランチに `push` されないので注意しましょう。
 ```js:Terminal
 # Dockerで再ビルドする
 ~Laravel9-Docker-TestPJ $ docker-compose up -d
