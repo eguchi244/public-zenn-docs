@@ -534,7 +534,6 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 【phpMyAdminのTOPページ】
 ブラウザに [http://localhost:8080/](http://localhost:8080/) で アクセスして表示されればOKです。 
 phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
-![](/images/laravel-and-docker-introduction-20230822/2023-08-25-14-46-29.png)
 
 【mailhogのTOPページ】
 mailhogを採用している方はこちらもご確認ください。
