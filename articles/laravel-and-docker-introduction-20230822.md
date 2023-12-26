@@ -563,7 +563,7 @@ root@~LaravelTestProject # exit
 これで「**Laravelを導入する**」は完了です。
 
 実際にLaravelを使ってアプリを作成してみたい方のためのWEB書籍も執筆しています。
-ご興味のある方は下記を実施みてください。
+ご興味のある方は下記を実施してみてください。
 https://zenn.dev/eguchi244_dev/books/laravel-tutorial-books
 
 # 後始末をする
