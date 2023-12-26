@@ -41,7 +41,8 @@ PCに下記がインストールと設定がされていることが前提です
 
 :::message
 【環境構築の目標】
-- フレームワーク：Laravel Framework 9.x.x(Vite)
+- フレームワーク：Laravel Framework 9.x.x
+- フロントエンドビルドツール：Vite
 - データベース：MYSQL 5.7.36
 - DB管理ツール : phpMyAdmin latest
 - PHP：PHP 8.0.x
@@ -453,8 +454,8 @@ root@~LaravelTestProject # chown ./www-data/storage -R
 
 `.env.example` のDBの設定を下記のように書き換えてください。
 ```js: .env.example（書き換え箇所）
-DB_CONNECTION=db
-DB_HOST=127.0.0.1
+DB_CONNECTION=mysql
+DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
@@ -481,8 +482,8 @@ LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
 
-DB_CONNECTION=db
-DB_HOST=127.0.0.1
+DB_CONNECTION=mysql
+DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
@@ -529,6 +530,7 @@ VITE_PUSHER_HOST="${PUSHER_HOST}"
 VITE_PUSHER_PORT="${PUSHER_PORT}"
 VITE_PUSHER_SCHEME="${PUSHER_SCHEME}"
 VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+
 ```
 :::
 
