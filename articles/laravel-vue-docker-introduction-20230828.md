@@ -426,8 +426,8 @@ root@~LaravelVueProject # chown www-data ./ -R
 
 `.env.example` のDBの設定を下記のように書き換えてください。
 ```js: .env.example（書き換え箇所）
-DB_CONNECTION=db
-DB_HOST=127.0.0.1
+DB_CONNECTION=mysql
+DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
@@ -454,8 +454,8 @@ LOG_CHANNEL=stack
 LOG_DEPRECATIONS_CHANNEL=null
 LOG_LEVEL=debug
 
-DB_CONNECTION=db
-DB_HOST=127.0.0.1
+DB_CONNECTION=mysql
+DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=mysql_test_db
 DB_USERNAME=admin
