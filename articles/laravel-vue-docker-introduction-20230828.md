@@ -50,7 +50,8 @@ PCに下記がインストールと設定がされていることが前提です
 
 :::message
 【環境構築の目標】
-- フレームワーク：Laravel Framework 9.x.x (LaravelMix)
+- フレームワーク：Laravel Framework 9.x.x
+- フロントエンドビルドツール：LaravelMix
 - データベース：MYSQL 5.7.36
 - DB管理ツール：phpMyAdmin latest
 - PHP：PHP 8.0.x
