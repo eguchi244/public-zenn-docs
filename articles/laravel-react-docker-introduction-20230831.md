@@ -525,11 +525,20 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 ```
 :::
 
-15. ブラウザでLaravelの表示を確認する
+15. ブラウザで表示を確認する
 
+【Laravelのウェルカムページ】
 ブラウザに http://localhost/ でアクセスして表示されればOKです。
 ![](/images/laravel-react-docker-introduction-20230831/2023-09-01-10-50-58.png)
 
+【phpMyAdminのTOPページ】
+ブラウザに [http://localhost:8080/](http://localhost:8080/) で アクセスして表示されればOKです。 
+phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
+![](/images/laravel-and-docker-introduction-20230822/2023-08-25-14-46-29.png)
+
+【mailhogのTOPページ】
+mailhogを採用している方はこちらもご確認ください。
+ブラウザに [http://localhost:8025/](http://localhost:8025/) で アクセスして表示されればOKです。
 
 これで「①Laravelを導入する」は完了です。
 
