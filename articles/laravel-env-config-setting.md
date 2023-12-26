@@ -3,7 +3,7 @@ title: "LaravelのENVとConfigの違いを理解する"
 emoji: "👻"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["Laravel", "PHP", "Docker", "dockercompose"]
-published: false # 公開に指定する
+published: true # 公開に指定する
 ---
 # はじめに
 この記事では「LaravelのENVとConfigの違いを理解する」ことを目指します。
