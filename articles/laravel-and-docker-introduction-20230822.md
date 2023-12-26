@@ -11,7 +11,7 @@ Dockerを使って少ない労力で環境構築できるようになりたい�
 ![](/images/laravel-and-docker-introduction-20230822/2023-08-22-13-10-28.png =500x)
 
 ## 記事の改訂について
-Laravelの環境設定に関する詳細な解説は下記の記事に移転しました。
+Laravelの環境設定に関する詳細な解説とテストページの作成は下記の記事に移転しました。
 「LaravelをDockerで簡単に構築すること」の趣旨に反すると判断したからです。
 ご理解のほど宜しくお願い致します。
 https://zenn.dev/eguchi244_dev/articles/laravel-env-config-setting
