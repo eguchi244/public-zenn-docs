@@ -1099,7 +1099,7 @@ Dcokerファイルに合わせたENV設定は問題ないことが確認でき�
 
 ブラウザに [http://localhost:8080/](http://localhost:8080/) で phpMyAdmin が表示されればOKです。 
 phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
-![](/images/laravel-env-config-setting/2023-08-25-14-46-29.png)
+![](/images/laravel-env-config-setting/2023-12-27-11-14-33.png)
 
 6. コンテナからログアウトする
 ```js:Terminal
