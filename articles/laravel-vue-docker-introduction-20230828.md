@@ -19,7 +19,6 @@ https://zenn.dev/eguchi244_dev/articles/laravel-and-docker-introduction-20230822
 
 - HTML&CSS, PHPをある程度は理解している
 - Javascriptをある程度は理解している
-- Dockerをある程度は理解している
 - Linuxコマンドに触れたことがある
 
 これらについては詳細に解説することはありませんのでご承知ください。
@@ -52,6 +51,7 @@ PCに下記がインストールと設定がされていることが前提です
 【環境構築の目標】
 - フレームワーク：Laravel Framework 9.x.x
 - フロントエンドビルドツール：LaravelMix
+- 認証ライブラリ：laravel/ui
 - データベース：MYSQL 5.7.36
 - DB管理ツール：phpMyAdmin latest
 - PHP：PHP 8.0.x
@@ -61,7 +61,7 @@ PCに下記がインストールと設定がされていることが前提です
 :::
 【ディレクトリ構成】
 ```js:
-Laravel9-Vue-TestPJ（ルートディレクトリ）※ 任意の名前でOK
+laravel9-vue-build-template（ルートディレクトリ）※ 任意の名前でOK
 ├── docker-compose.yml
 ├── docker 
 │   ├── php 
@@ -98,10 +98,10 @@ https://www.webstaff.jp/guide/trend/vuejs/#case01
 
 1. ルートディレクトリを作成する  
 
-任意のディレクトリに「Laravel9-Vue-TestPJ」を作成します。
+任意のディレクトリに「laravel9-vue-build-template」を作成します。
 ```js:Terminal
-$ mkdir Laravel9-Vue-TestPJ
-~Laravel9-Vue-TestPJ $ cd Laravel9-Vue-TestPJ
+$ mkdir laravel9-vue-build-template
+~laravel9-vue-build-template $ cd laravel9-vue-build-template
 ```
 
 2. docker-compose.ymlファイルを作成して編集する
@@ -210,12 +210,12 @@ mailhogはメールサーバーを構築するライブラリーです。Laravel
 
 3. ルートディレクトリ直下に `¥docker` `¥src` を作成する
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ mkdir docker && mkdir src
+~laravel9-vue-build-template $ mkdir docker && mkdir src
 ```
 
 4. `¥docker` 直下に `¥php` `¥nginx` を作成する
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ cd docker
+~laravel9-vue-build-template $ cd docker
 ~docker$ mkdir php && mkdir nginx
 ```
 
@@ -371,12 +371,12 @@ root /var/www/<Laravelのプロジェクト名>/public;
 7. Docker を起動してコンテナを作る
 ```js:Terminal
 ~nginx $ cd .. && cd ..
-~Laravel9-Vue-TestPJ $ docker-compose up -d
+~laravel9-vue-build-template $ docker-compose up -d
 ```
 
 8. コンテナにログインする(シェル内でコンテナ操作できるようになります)
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ docker-compose exec php bash
+~laravel9-vue-build-template $ docker-compose exec php bash
 ```
 
 9. Laravelをインストールする  
@@ -526,10 +526,12 @@ VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
 【phpMyAdminのTOPページ】
 ブラウザに [http://localhost:8080/](http://localhost:8080/) で アクセスして表示されればOKです。 
 phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
+![](/images/laravel-vue-docker-introduction-20230828/2023-12-27-11-14-33.png)
 
 【mailhogのTOPページ】
 mailhogを採用している方はこちらもご確認ください。
 ブラウザに [http://localhost:8025/](http://localhost:8025/) で アクセスして表示されればOKです。
+![](/images/laravel-vue-docker-introduction-20230828/2023-12-27-13-01-38.png)
 
 これで「①Laravelを導入する」は完了です。
 
@@ -557,7 +559,7 @@ https://migisanblog.com/laravel-vue-install/#index_id2
 
 0. コンテナにログインする
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ docker-compose exec php bash
+~laravel9-vue-build-template $ docker-compose exec php bash
 root@~/www# cd LaravelVueProject
 # キージェネレートしておく
 root@~LaravelVueProject # php artisan key:generate
@@ -857,7 +859,7 @@ Dockerを使っているので必要になったら、またビルド（構築�
 
 1. サービスに関連するコンテナ, イメージ, ボリュームを全て削除する
 ```js:Terminal
-~Laravel9-Vue-TestPJ $ docker-compose down -v --rmi all
+~laravel9-vue-build-template $ docker-compose down -v --rmi all
 ```
 :::message alert
 解説 - docker-compose down -v --rmi all
@@ -871,11 +873,11 @@ Dockerを使っているので必要になったら、またビルド（構築�
 個別に消したい場合には下記のようにします。
 ```js:Terminal
 # コンテナ（とネットワーク）削除
-~Laravel9-Vue-TestPJ $ docker-compose down
+~laravel9-vue-build-template $ docker-compose down
 # コンテナとボリュームの削除
-~Laravel9-Vue-TestPJ $ docker-compose down -v
+~laravel9-vue-build-template $ docker-compose down -v
 # コンテナとイメージの削除
-~Laravel9-Vue-TestPJ $ docker-compose down --rmi all
+~laravel9-vue-build-template $ docker-compose down --rmi all
 ```
 
 サービスに関連するものだけを削除するのでこの後に紹介するコマンドより安全です。
@@ -884,15 +886,15 @@ Dockerを使っているので必要になったら、またビルド（構築�
 :::details サービスに限定しないで一括で消す場合
 ```js:Terminal
 # コンテナを停止する
-~Laravel9-Vue-TestPJ $ docker-compose stop
+~laravel9-vue-build-template $ docker-compose stop
 # コンテナの一括削除
-~Laravel9-Vue-TestPJ $ docker rm $(docker ps -aq)
+~laravel9-vue-build-template $ docker rm $(docker ps -aq)
 # ネットワークの一括削除
-~Laravel9-Vue-TestPJ $ docker network prune
+~laravel9-vue-build-template $ docker network prune
 # イメージの一括削除
-~Laravel9-Vue-TestPJ $ docker rmi $(docker images -q)
+~laravel9-vue-build-template $ docker rmi $(docker images -q)
 # ボリュームの削除
-~Laravel9-Vue-TestPJ $ docker volume prune
+~laravel9-vue-build-template $ docker volume prune
 ```
 但し、このコマンドはサービスに限定せずに全ての現在実行中および停止中の全ての コンテナ, ネットワーク, イメージ, ボリューム を一括削除します。そのため、実行する際には慎重に行なってください。例えば、何が起きても困らない自分の学習用PC端末などですべて消したい場合で使用します。
 :::
@@ -900,28 +902,28 @@ Dockerを使っているので必要になったら、またビルド（構築�
 :::details 個別に消したい場合
 ```js:Terminal
 # コンテナを停止する
-~Laravel9-Vue-TestPJ $ docker-compose stop
+~laravel9-vue-build-template $ docker-compose stop
 
 # コンテナを確認する
-~Laravel9-Vue-TestPJ $ docker ps -a
+~laravel9-vue-build-template $ docker ps -a
 # 特定のコンテナの削除
-~Laravel9-Vue-TestPJ $ docker rm コンテナID (CONTAINER ID)
+~laravel9-vue-build-template $ docker rm コンテナID (CONTAINER ID)
 
 # ネットワークを確認する
-~Laravel9-Vue-TestPJ $ docker network ls
+~laravel9-vue-build-template $ docker network ls
 # 特定のネットワークの削除
-~Laravel9-Vue-TestPJ $ docker network rm (NETWORK NAME)
+~laravel9-vue-build-template $ docker network rm (NETWORK NAME)
 
 # イメージを確認する
-~Laravel9-Vue-TestPJ $ docker images
+~laravel9-vue-build-template $ docker images
 # 特定のイメージの削除
-~Laravel9-Vue-TestPJ $ docker rmi イメージID (IMAGE ID)
+~laravel9-vue-build-template $ docker rmi イメージID (IMAGE ID)
 
 # ボリュームを確認する
-~Laravel9-Vue-TestPJ $ docker images
+~laravel9-vue-build-template $ docker images
 docker volume ls
 # 特定のボリュームの削除
-~Laravel9-Vue-TestPJ $ docker volume rm (VOLUME NAME)
+~laravel9-vue-build-template $ docker volume rm (VOLUME NAME)
 ```
 :::
 
@@ -931,8 +933,8 @@ docker volume ls
 本記事をみれば良いと思ってる人はフォルダとファイルも消してしまいましょう。
 ```js:Terminal
 # 親ディレクトリに移動
-~Laravel9-Vue-TestPJ $ cd ..
-~親ディレクトリ名 $ rm -rf Laravel9-Vue-TestPJ
+~laravel9-vue-build-template $ cd ..
+~親ディレクトリ名 $ rm -rf laravel9-vue-build-template
 ```
 これで「**後始末をする**」は完了です。
 
