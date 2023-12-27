@@ -53,7 +53,7 @@ PCに下記がインストールと設定がされていることが前提です
 :::message
 【ディレクトリ構成】
 ```js:
-Laravel9-Docker-TestPJ（ルートディレクトリ）※ 任意の名前でOK
+laravel9-build-template（ルートディレクトリ）※ 任意の名前でOK
 ├── docker-compose.yml
 ├── docker 
 │   ├── php 
@@ -150,10 +150,10 @@ Controller : ModelとViewの制御（橋渡し）を担当する。
 
 1. ルートディレクトリを作成する  
 
-任意のディレクトリに「Laravel9-Docker-TestPJ」を作成します。
+任意のディレクトリに「laravel9-build-template」を作成します。
 ```js:Terminal
-$ mkdir Laravel9-Docker-TestPJ
-~Laravel9-Docker-TestPJ $ cd Laravel9-Docker-TestPJ
+$ mkdir laravel9-build-template
+~laravel9-build-template $ cd laravel9-build-template
 ```
 2. docker-compose.ymlファイルを作成して編集する
 
@@ -246,12 +246,12 @@ volumes:
 
 3. ルートディレクトリ直下に `¥docker` `¥src` を作成する
 ```js:Terminal
-~Laravel9-Docker-TestPJ $ mkdir docker && mkdir src
+~laravel9-build-template $ mkdir docker && mkdir src
 ```
 
 4. `¥docker` 直下に `¥php` `¥nginx` を作成する
 ```js:Terminal
-~Laravel9-Docker-TestPJ $ cd docker
+~laravel9-build-template $ cd docker
 ~docker$ mkdir php && mkdir nginx
 ```
 
@@ -388,12 +388,12 @@ root /var/www/<Laravelのプロジェクト名>/public;
 7. Docker を起動してコンテナを作る
 ```js:Terminal
 ~nginx $ cd .. && cd ..
-~Laravel9-Docker-TestPJ $ docker-compose up -d
+~laravel9-build-template $ docker-compose up -d
 ```
 
 8. コンテナにログインする(シェル内でコンテナ操作できるようになります)
 ```js:Terminal
-~Laravel9-Docker-TestPJ $ docker-compose exec php bash
+~laravel9-build-template $ docker-compose exec php bash
 ```
 
 9. Laravelをインストールする  
@@ -555,6 +555,7 @@ Laravelでは、非常に重要な `.env` ファイルは Githib などで共有
 【phpMyAdminのTOPページ】
 ブラウザに [http://localhost:8080/](http://localhost:8080/) で アクセスして表示されればOKです。 
 phpMyAdmin が表示されているなら MySQL（DB）も phpMyAdmin 問題なく稼働しています。
+![](/images/laravel-and-docker-introduction-20230822/2023-12-27-11-14-33.png)
 
 16. コンテナからログアウトする
 ```js:Terminal
@@ -574,7 +575,7 @@ Dockerを使っているので必要になったら、またビルド（構築�
 
 1. サービスに関連するコンテナ, イメージ, ボリュームを全て削除する
 ```js:Terminal
-~Laravel9-Docker-TestPJ $ docker-compose down -v --rmi all
+~laravel9-build-template $ docker-compose down -v --rmi all
 ```
 :::message alert
 解説 - docker-compose down -v --rmi all
@@ -588,11 +589,11 @@ Dockerを使っているので必要になったら、またビルド（構築�
 個別に消したい場合には下記のようにします。
 ```js:Terminal
 # コンテナ（とネットワーク）削除
-~Laravel9-Docker-TestPJ $ docker-compose down
+~laravel9-build-template $ docker-compose down
 # コンテナとボリュームの削除
-~Laravel9-Docker-TestPJ $ docker-compose down -v
+~laravel9-build-template $ docker-compose down -v
 # コンテナとイメージの削除
-~Laravel9-Docker-TestPJ $ docker-compose down --rmi all
+~laravel9-build-template $ docker-compose down --rmi all
 ```
 
 サービスに関連するものだけを削除するのでこの後に紹介するコマンドより安全です。
@@ -601,15 +602,15 @@ Dockerを使っているので必要になったら、またビルド（構築�
 :::details サービスに限定しないで一括で消す場合
 ```js:Terminal
 # コンテナを停止する
-~Laravel9-Docker-TestPJ $ docker-compose stop
+~laravel9-build-template $ docker-compose stop
 # コンテナの一括削除
-~Laravel9-Docker-TestPJ $ docker rm $(docker ps -aq)
+~laravel9-build-template $ docker rm $(docker ps -aq)
 # ネットワークの一括削除
-~Laravel9-Docker-TestPJ $ docker network prune
+~laravel9-build-template $ docker network prune
 # イメージの一括削除
-~Laravel9-Docker-TestPJ $ docker rmi $(docker images -q)
+~laravel9-build-template $ docker rmi $(docker images -q)
 # ボリュームの削除
-~Laravel9-Docker-TestPJ $ docker volume prune
+~laravel9-build-template $ docker volume prune
 ```
 但し、このコマンドはサービスに限定せずに全ての現在実行中および停止中の全ての コンテナ, ネットワーク, イメージ, ボリューム を一括削除します。そのため、実行する際には慎重に行なってください。例えば、何が起きても困らない自分の学習用PC端末などですべて消したい場合で使用します。
 :::
@@ -617,28 +618,28 @@ Dockerを使っているので必要になったら、またビルド（構築�
 :::details 個別に消したい場合
 ```js:Terminal
 # コンテナを停止する
-~Laravel9-Docker-TestPJ $ docker-compose stop
+~laravel9-build-template $ docker-compose stop
 
 # コンテナを確認する
-~Laravel9-Docker-TestPJ $ docker ps -a
+~laravel9-build-template $ docker ps -a
 # 特定のコンテナの削除
-~Laravel9-Docker-TestPJ $ docker rm コンテナID (CONTAINER ID)
+~laravel9-build-template $ docker rm コンテナID (CONTAINER ID)
 
 # ネットワークを確認する
-~Laravel9-Docker-TestPJ $ docker network ls
+~laravel9-build-template $ docker network ls
 # 特定のネットワークの削除
-~Laravel9-Docker-TestPJ $ docker network rm (NETWORK NAME)
+~laravel9-build-template $ docker network rm (NETWORK NAME)
 
 # イメージを確認する
-~Laravel9-Docker-TestPJ $ docker images
+~laravel9-build-template $ docker images
 # 特定のイメージの削除
-~Laravel9-Docker-TestPJ $ docker rmi イメージID (IMAGE ID)
+~laravel9-build-template $ docker rmi イメージID (IMAGE ID)
 
 # ボリュームを確認する
-~Laravel9-Docker-TestPJ $ docker images
+~laravel9-build-template $ docker images
 docker volume ls
 # 特定のボリュームの削除
-~Laravel9-Docker-TestPJ $ docker volume rm (VOLUME NAME)
+~laravel9-build-template $ docker volume rm (VOLUME NAME)
 ```
 :::
 
@@ -648,8 +649,8 @@ docker volume ls
 本記事をみれば良いと思ってる人はフォルダとファイルも消してしまいましょう。
 ```js:Terminal
 # 親ディレクトリに移動
-~Laravel9-Docker-TestPJ $ cd ..
-~親ディレクトリ名 $ rm -rf Laravel9-Docker-TestPJ
+~laravel9-build-template $ cd ..
+~親ディレクトリ名 $ rm -rf laravel9-build-template
 ```
 これで「**後始末をする**」は完了です。
 
