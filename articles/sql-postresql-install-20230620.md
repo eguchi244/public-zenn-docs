@@ -157,7 +157,7 @@ $ psql -l
 ※ Owner で使用されている名前は、DBに接続する時にロール名として使用します。
 
 #### PostgreSQLに接続する
-DBに接続するには `psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` を使用します。
+PostgresSQLに接続するには `psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` を使用します。
 ```js:Terminal
 $ psql -h localhost -p 5432 -U *** -d postgres
 ```
@@ -220,7 +220,7 @@ postgres=# \l
 一覧から `test` が消えていればOKです。
 
 #### PostgresSQLの接続を終了する
-DBの接続を終了するには `\q` コマンドを使用します。
+PostgresSQLの接続を終了するには `\q` コマンドを使用します。
 ```js:Terminal
 postgres=# \q
 ```
