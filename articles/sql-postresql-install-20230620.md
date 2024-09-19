@@ -133,7 +133,7 @@ $ initdb /usr/local/var/postgres -E utf8
 # PostgreSQLの動作確認をする
 ここでは「DBの起動の一連の流れ」を扱います。
 
-#### PostgreSQLを起動する
+#### データーベースを起動する
 ```js:Terminal
 $ brew services start postgresql
 Warning: Formula postgresql was renamed to postgresql@14.
@@ -156,7 +156,7 @@ $ psql -l
 ```
 ※ Owner で使用されている名前は、DBに接続する時にロール名として使用します。
 
-#### データーベースに接続する
+#### PostgreSQLに接続する
 DBに接続するには `psql -h ホスト名 -p ポート番号 -U ロール名 -d データベース名` を使用します。
 ```js:Terminal
 $ psql -h localhost -p 5432 -U *** -d postgres
