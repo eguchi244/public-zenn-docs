@@ -226,7 +226,7 @@ postgres=# \q
 ```
 
 #### データーベースの接続を終了する
-DBの接続を終了するには `\q` コマンドを使用します。
+DBの接続を終了するには下記のコマンドを使用します。
 ```js:Terminal
 postgres=# brew services stop postgresql
 ```
