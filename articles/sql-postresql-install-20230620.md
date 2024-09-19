@@ -219,10 +219,16 @@ postgres=# \l
 ```
 一覧から `test` が消えていればOKです。
 
-#### データーベースの接続を終了する
+#### PostgresSQLの接続を終了する
 DBの接続を終了するには `\q` コマンドを使用します。
 ```js:Terminal
 postgres=# \q
+```
+
+#### データーベースの接続を終了する
+DBの接続を終了するには `\q` コマンドを使用します。
+```js:Terminal
+postgres=# brew services stop postgresql
 ```
 
 # まとめ
