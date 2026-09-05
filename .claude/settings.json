@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx zenn:*)",
+      "Bash(npm install)",
+      "Bash(npm ls:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git show:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(git ls-files:*)"
+    ],
+    "ask": [
+      "Bash(git branch -d:*)",
+      "Bash(git branch -D:*)",
+      "Bash(git branch --delete:*)"
+    ]
+  }
+}
