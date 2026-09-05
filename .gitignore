@@ -2,3 +2,5 @@ node_modules
 .DS_Store
 .claude/settings.local.json
 plan/
+.claude/instruction_log.md
+.claude/instruction_log.error.txt

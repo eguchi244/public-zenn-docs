@@ -17,5 +17,17 @@
       "Bash(git branch -D:*)",
       "Bash(git branch --delete:*)"
     ]
+  },
+  "hooks": {
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/save_instruction_log.ps1\""
+          }
+        ]
+      }
+    ]
   }
 }

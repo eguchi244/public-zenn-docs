@@ -108,15 +108,21 @@ toc_depth: 3
 
 ## コミットしないもの
 
-`.gitignore` 済み: `node_modules`、`.DS_Store`、`.claude/settings.local.json`（個人設定）、`plan/`（`plansDirectory` 設定によりリポジトリ内に生成されるプランファイル）。
+`.gitignore` 済み: `node_modules`、`.DS_Store`、`.claude/settings.local.json`（個人設定）、`plan/`（`plansDirectory` 設定によりリポジトリ内に生成されるプランファイル）、`.claude/instruction_log.md` と `.claude/instruction_log.error.txt`（下記フックの出力）。
 
-`.mcp.json`、`.claude/settings.json`、`.claude/skills/`、`.claude/zenn-profile.md` は共有資産としてコミットする。
+`.mcp.json`、`.claude/settings.json`、`.claude/skills/`、`.claude/hooks/`、`.claude/zenn-profile.md` は共有資産としてコミットする。
+
+## フック
+
+`.claude/settings.json` の `SessionEnd` が `.claude/hooks/save_instruction_log.ps1` を呼び、そのセッションでユーザーが出した指示を `.claude/instruction_log.md` へ追記する。**スクリプトは共有資産、出力ログは各自の手元に残すもの**なので、前者だけをコミットする。
+
+フックの登録内容を変えたら、**新しいセッションを開始しないと反映されない**（起動時にスナップショットされる）。`/hooks` で現在の登録を確認できる。
 
 ## 他の Zenn リポジトリへ適用する
 
 この設定一式は他の Zenn リポジトリへそのまま持ち込める。手順は `.claude/skills/zenn-repo-setup/SKILL.md`（共通ファイルのコピー → リポジトリ調査 → プロファイル生成）。
 
-**共通ファイル（このファイル・`.claude/skills/`・`.claude/settings.json`・`.mcp.json`・`.vscode/settings.json`・`.gitignore`）にリポジトリ固有の事実を書き足さない。** 固有の事実が出てきたらプロファイル側へ書く。
+**共通ファイル（このファイル・`.claude/skills/`・`.claude/hooks/`・`.claude/settings.json`・`.mcp.json`・`.vscode/settings.json`・`.gitignore`）にリポジトリ固有の事実を書き足さない。** 固有の事実が出てきたらプロファイル側へ書く。
 
 ## このリポジトリ固有の情報
 

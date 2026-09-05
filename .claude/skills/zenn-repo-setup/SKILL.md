@@ -11,7 +11,7 @@ description: 新しい Zenn リポジトリに、この基準の Claude Code 設
 
 | 層 | ファイル | 性質 |
 |---|---|---|
-| 共通 | `CLAUDE.md`、`.claude/skills/`、`.claude/settings.json`、`.mcp.json`、`.vscode/settings.json`、`.gitignore` | 全リポジトリで**バイト単位で同一**。そのままコピーする |
+| 共通 | `CLAUDE.md`、`.claude/skills/`、`.claude/hooks/`、`.claude/settings.json`、`.mcp.json`、`.vscode/settings.json`、`.gitignore` | 全リポジトリで**バイト単位で同一**。そのままコピーする |
 | 固有 | `.claude/zenn-profile.md` | このリポジトリだけの事実。調査して生成する |
 
 **共通ファイルにリポジトリ固有の事実（記事名、件数、公開状態、バージョン）を書き足さない。** それをやると汎用性が失われる。固有の事実はすべてプロファイル側に書く。
@@ -28,12 +28,13 @@ mkdir -p "$DST/.claude" "$DST/.vscode"
 cp "$SRC/CLAUDE.md"               "$DST/CLAUDE.md"
 cp "$SRC/.claude/settings.json"   "$DST/.claude/settings.json"
 cp -r "$SRC/.claude/skills"       "$DST/.claude/"
+cp -r "$SRC/.claude/hooks"        "$DST/.claude/"
 cp "$SRC/.mcp.json"               "$DST/.mcp.json"
 cp "$SRC/.vscode/settings.json"   "$DST/.vscode/settings.json"
 cp "$SRC/.gitignore"              "$DST/.gitignore"
 ```
 
-`.gitignore` が既にある場合は上書きせず、`node_modules` / `.DS_Store` / `.claude/settings.local.json` / `plan/` の4項目が揃っているか確認して足りない分だけ追記する。
+`.gitignore` が既にある場合は上書きせず、`node_modules` / `.DS_Store` / `.claude/settings.local.json` / `plan/` / `.claude/instruction_log.md` / `.claude/instruction_log.error.txt` の6項目が揃っているか確認して足りない分だけ追記する。
 
 `.claude/settings.local.json`（`plansDirectory`、`enabledMcpjsonServers`）は個人設定なのでコピーしない。必要なら各自で作る。
 
