@@ -96,5 +96,6 @@ git branch -a && git status --short && git log --oneline -3
 
 ## 注意点
 
+- submodule の参照の差分（`git status` で ` M <submodule のパス>`、`git diff` で `Subproject commit` の変更）は、教材を最新化した結果。記事の変更と一緒にコミットする（`source-material` スキル参照）。意図せず出ている場合はユーザーに確認する
 - 改行コードだけの差分（`git status` は `M` だが `git diff` が空）は、ステージしても内容が変わらない。無理に含めなくてよい
 - ファイル名を変えた場合は `git add -A` すれば Git がリネームとして認識する
