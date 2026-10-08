@@ -22,6 +22,21 @@ git status --short                              # 参照が進んでいれば ` 
 - submodule が見るのは**教材リポジトリの GitHub 上の追跡ブランチ**。教材を手元で編集中なら、先に教材リポジトリ側で commit・push してもらう（未 push の編集は見えない）。編集中の内容を記事に使いたいと言われたら、push が先だと伝える
 - 同じ教材の作業用クローンが別の場所にあっても、**記事の材料は submodule 側だけを読む**（版の記録とずれないように）
 
+### 教材リポジトリの Claude Code 設定を展開しない（初回だけ）
+
+教材リポジトリが自分の `CLAUDE.md`・`.claude/`（スキル・フック）・`.mcp.json` を持っていると、submodule 内のファイルを読んだときにそれらも読み込まれ、同名のスキル（`commit-flow` など）が二重に見えて、どちらの規約に従うべきかが曖昧になる。**記事の材料に要るのは教材だけ**なので、sparse-checkout でこれらを作業ツリーに展開しない。
+
+```bash
+MSYS_NO_PATHCONV=1 git -C <submodule のパス> sparse-checkout set --no-cone '/*' '!/.claude/' '!/CLAUDE.md' '!/.mcp.json'
+git -C <submodule のパス> sparse-checkout list    # 4行が上のとおり出ること
+ls -a <submodule のパス>                           # .claude・CLAUDE.md・.mcp.json が無いこと
+```
+
+- **Git Bash では `MSYS_NO_PATHCONV=1` が必須。** 付けないと `!/.claude/` が `!C:/Program Files/Git/.claude/` に変換され、除外が効かない（`sparse-checkout list` で気づける）。PowerShell から実行する場合は不要
+- 設定はローカルだけでリポジトリに記録されない。**clone し直したり submodule を初期化し直したりしたら再設定する**（`ls -a` で `CLAUDE.md` が見えたら未設定）
+- `git submodule update --remote` で教材を進めても設定は維持される
+- 参照しているコミット（gitlink）は変わらないので、このリポジトリ側にコミットすべき差分は出ない
+
 ## 2. 教材を読んで書く
 
 - submodule の中のファイルは**読むだけ**。編集・コミットしない（教材の修正は教材リポジトリ側で行う）
