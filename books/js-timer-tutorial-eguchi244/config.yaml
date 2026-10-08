@@ -1,0 +1,12 @@
+title: "JavaScript入門 - タイマーアプリを作ってみよう!"
+summary: "
+  フレームワークを使わない素の JavaScript（Vanilla JS）で、カウントダウンタイマーとストップウォッチを作る書籍です。
+
+  setInterval によるタイマー制御、状態から画面を作る考え方、Date.now() を使ったずれないタイマー、Web Audio API と async/await まで、3つのフェーズに分けて段階的に完成させます。
+
+  各章の末尾に答え合わせ用のソースコードを掲載しています。手を動かしながら JavaScript の基礎を身につけましょう。
+  " # 本の紹介文
+topics: ["JavaScript", "HTML", "CSS", "初心者"] # タグ
+published: true # 公開設定
+price: 0 # 有料の場合200〜5000
+toc_depth: 3 # 目次設定0~3で指定
