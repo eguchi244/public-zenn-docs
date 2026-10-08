@@ -110,6 +110,10 @@ toc_depth: 3
 
 下書き用と公開用でリポジトリを分けている場合、書きかけの記事・本は下書き用で書き、完成したら公開用へ複製して公開する。手順は `.claude/skills/draft-to-publish/SKILL.md`。どのリポジトリが下書き用・公開用かはプロファイルの「下書きと公開の流れ」を見る。
 
+## 教材の参照
+
+別リポジトリの教材を元に書く場合、教材リポジトリは Git submodule として参照する（ファイルを取り込まない）。最新化・コミットの手順は `.claude/skills/source-material/SKILL.md`。どの教材をどこに置いているかはプロファイルの「教材リポジトリ」を見る。
+
 ## コミットしないもの
 
 `.gitignore` 済み: `node_modules`、`.DS_Store`、`.claude/settings.local.json`（個人設定）、`plan/`（`plansDirectory` 設定によりリポジトリ内に生成されるプランファイル）、`.claude/instruction_log.md` と `.claude/instruction_log.error.txt`（下記フックの出力）。

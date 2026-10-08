@@ -52,6 +52,7 @@ grep -n 'chapters:' books/*/config.yaml         # 空の chapters: が残って�
 grep zenn-cli package.json                      # zenn-cli のバージョン
 git log --oneline -20                           # コミット件名の慣習
 git log --merges --oneline | head -3            # ブランチ運用が入っているか
+git submodule status                            # 教材リポジトリを submodule で参照しているか
 ```
 
 画像ディレクトリの方針は `ls images` の結果を記事 slug・本 slug・章ファイル名と突き合わせて判定する:
@@ -74,6 +75,7 @@ git log --merges --oneline | head -3            # ブランチ運用が入って
 ## 連携先
 ## 公開状態
 ## 下書きと公開の流れ
+## 教材リポジトリ
 ## コンテンツ
 ## 記事の構成
 ## 画像ディレクトリの方針
@@ -87,6 +89,7 @@ git log --merges --oneline | head -3            # ブランチ運用が入って
 - **連携先** — Zenn と連携している GitHub リポジトリと連携ブランチ
 - **公開状態** — `published: true` / `false` の内訳。**push が即公開に反映されるかどうか**を明記する。ここが最も事故に直結する
 - **下書きと公開の流れ** — 下書き用と公開用でリポジトリを分けているなら、このリポジトリがどちらか、相手のリポジトリ、複製時に直すこと（`published`、画像ディレクトリの方針や zenn-cli の差）。分けていなければ「無し」
+- **教材リポジトリ** — submodule で参照している教材リポジトリの URL・パス・追跡ブランチ、公開/非公開。`.gitmodules` から拾う。無ければ「無し」
 - **コンテンツ** — 記事・本のおおまかな構成（本の slug と章数など）。記事の全一覧表は作らない
 - **記事の構成** — 公開済みの記事・本で揃っている書き方: frontmatter の書き方、見出しの型（冒頭・結びの節、小見出しの番号の振り方）、本の章タイトルの書式、よく使う Zenn 記法。公開用リポジトリでは特に重要（下書きを公開前にこれに揃える）。下書きしか無いリポジトリでは揃っていない点を書く
 - **画像ディレクトリの方針** — 記事側・本側それぞれの切り方。集約している場合は「貼った後に移動が必要」と明記
@@ -98,6 +101,7 @@ git log --merges --oneline | head -3            # ブランチ運用が入って
 
 ```bash
 npm install
+git submodule update --init   # 教材リポジトリを submodule で参照している場合
 npx zenn preview     # エラーが出ないこと。確認したら停止する
 ```
 
