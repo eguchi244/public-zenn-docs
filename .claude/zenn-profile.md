@@ -19,15 +19,19 @@
 
 ## 下書きと公開の流れ
 
-**このリポジトリは公開用。** 新しい記事・本はここで書き始めず、下書き用の `private-zenn-docs`（`C:\workspace\github.com\private-zenn-docs`）で `published: false` のまま書き、完成したらここへ複製して公開する。手順は `draft-to-publish` スキル。
+**このリポジトリは公開用で、記事・本は原本の写し。** 原本は下書き用の `private-zenn-docs`（`C:\workspace\github.com\private-zenn-docs`）に `<公開slug>-draft` の slug で置いてある。新しい記事・本はここで書き始めず、公開後の修正もここで直接行わない。原本を直して同期し直す。手順は `draft-to-publish` スキル。
 
-複製時に直すこと:
-
-- `published: false` → `true`
-- 本の画像: `private-zenn-docs` は `images/<章ファイル名>/`、ここは `images/<本の slug>/<章ファイル名>/` の2階層（下記「画像ディレクトリの方針」）。章ごとのディレクトリを `images/<本の slug>/` の下へ移し、参照パスを書き換える。記事の画像は両方とも `images/<記事の slug>/` なのでそのまま
-
-**公開後は下書きを消し、修正はここで行う**（`draft-to-publish` 手順7と「公開後の修正」）。feature ブランチで直し、`npx zenn preview` で確認してからマージする。`private-zenn-docs` に同じ slug を残さない（両方 Zenn 連携のため、push のたびに衝突するおそれがある）。
+- **ここの記事・本を直接編集しない。** 同期スクリプトは `books/<公開slug>/` と `images/<公開slug>/` をまるごと作り直すので、直接の編集は次の同期で消える
+- 同期スクリプトが直すこと: `published: false` → `true`、本の画像を `private-zenn-docs` の `images/<章ファイル名>/` からここの `images/<本の slug>/<章ファイル名>/`（下記「画像ディレクトリの方針」）へ移して参照パスを書き換え
 - `config.yaml`: `private-zenn-docs` は zenn-cli 0.5 系、ここは 0.1 系。`chapters:` を書かない書き方は両方で通る
+
+原本からの写しになっている記事・本:
+
+| ここ | 原本（private-zenn-docs） |
+|---|---|
+| `books/js-timer-tutorial-eguchi244/` | `books/js-timer-tutorial-eguchi244-draft/` |
+
+それ以外（既存の記事12本と `laravel-tutorial-books`）は原本を持たず、ここで直接管理している。
 
 ## コンテンツ
 
