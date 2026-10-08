@@ -17,6 +17,16 @@
 - 下書きのつもりの変更を `main` に入れない
 - マージ前に `npx zenn preview` で最終確認する
 
+## 下書きと公開の流れ
+
+**このリポジトリは公開用。** 新しい記事・本はここで書き始めず、下書き用の `private-zenn-docs`（`C:\workspace\github.com\private-zenn-docs`）で `published: false` のまま書き、完成したらここへ複製して公開する。手順は `draft-to-publish` スキル。
+
+複製時に直すこと:
+
+- `published: false` → `true`
+- 本の画像: `private-zenn-docs` は章ファイル名単位、ここは本の slug 単位に集約（下記「画像ディレクトリの方針」）。`images/<本の slug>/` へまとめ、参照パスを書き換える。記事の画像は両方とも `images/<記事の slug>/` なのでそのまま
+- `config.yaml`: `private-zenn-docs` は zenn-cli 0.5 系、ここは 0.1 系。`chapters:` を書かない書き方は両方で通る
+
 ## コンテンツ
 
 - `articles/` に単発記事12本（`<slug>.md`）

@@ -106,6 +106,10 @@ toc_depth: 3
 - コミット件名は `[<対象記事・本の名前>]を<投稿|修正|削除>`。記事に紐づかない変更（CLI 更新、設定変更など）は角括弧なしの自由な日本語件名
 - `git status` の未追跡ファイルは `git add -A` せず中身を見て仕分ける
 
+## 下書きと公開
+
+下書き用と公開用でリポジトリを分けている場合、書きかけの記事・本は下書き用で書き、完成したら公開用へ複製して公開する。手順は `.claude/skills/draft-to-publish/SKILL.md`。どのリポジトリが下書き用・公開用かはプロファイルの「下書きと公開の流れ」を見る。
+
 ## コミットしないもの
 
 `.gitignore` 済み: `node_modules`、`.DS_Store`、`.claude/settings.local.json`（個人設定）、`plan/`（`plansDirectory` 設定によりリポジトリ内に生成されるプランファイル）、`.claude/instruction_log.md` と `.claude/instruction_log.error.txt`（下記フックの出力）。
