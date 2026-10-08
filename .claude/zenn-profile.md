@@ -12,7 +12,7 @@
 
 ## 公開状態
 
-**記事12本・本1冊すべて `published: true`。つまり `main` への push は即座に公開内容へ反映される。**
+**記事12本・本2冊すべて `published: true`。つまり `main` への push は即座に公開内容へ反映される。**
 
 - 下書きのつもりの変更を `main` に入れない
 - マージ前に `npx zenn preview` で最終確認する
@@ -24,13 +24,16 @@
 複製時に直すこと:
 
 - `published: false` → `true`
-- 本の画像: `private-zenn-docs` は章ファイル名単位、ここは本の slug 単位に集約（下記「画像ディレクトリの方針」）。`images/<本の slug>/` へまとめ、参照パスを書き換える。記事の画像は両方とも `images/<記事の slug>/` なのでそのまま
+- 本の画像: `private-zenn-docs` は `images/<章ファイル名>/`、ここは `images/<本の slug>/<章ファイル名>/` の2階層（下記「画像ディレクトリの方針」）。章ごとのディレクトリを `images/<本の slug>/` の下へ移し、参照パスを書き換える。記事の画像は両方とも `images/<記事の slug>/` なのでそのまま
+
+**公開後は下書きを消し、修正はここで行う**（`draft-to-publish` 手順7と「公開後の修正」）。feature ブランチで直し、`npx zenn preview` で確認してからマージする。`private-zenn-docs` に同じ slug を残さない（両方 Zenn 連携のため、push のたびに衝突するおそれがある）。
 - `config.yaml`: `private-zenn-docs` は zenn-cli 0.5 系、ここは 0.1 系。`chapters:` を書かない書き方は両方で通る
 
 ## コンテンツ
 
 - `articles/` に単発記事12本（`<slug>.md`）
 - `books/laravel-tutorial-books/`（Laravel入門 - Laravelを使ってみよう!）に `config.yaml` + `cover.jpg` + 全18章。ファイル名は `1.laravel-introduction.md` 〜 `18.laravel-todo-app-reference-article.md`
+- `books/js-timer-tutorial-eguchi244/`（JavaScript入門 - タイマーアプリを作ってみよう!）に `config.yaml` + 全5章（2026-10-08 公開）。`private-zenn-docs` で下書きし、教材は `private-study-dev` の `01_js_timer`。答え合わせ用は `eguchi244/JS-Timer-Tutorial-PJ`。`config.yaml` に `chapters:` は無い（0.1 系でもファイル名順に並ぶことを preview で確認済み）
 
 一覧が必要なときは `ls articles books/*/` で見る。
 
@@ -78,9 +81,9 @@ published: true # 公開に指定する
 **記事と本でルールが違う。**
 
 - 記事: `images/<記事の slug>/`
-- 本: **`images/laravel-tutorial-books/` に全18章分の画像をまとめて入れている。章ごとには分けていない**
+- 本: **`images/<本の slug>/<章ファイル名>/` の2階層。** 本の slug のディレクトリの下に章ごとのディレクトリを切る（例: `images/laravel-tutorial-books/3.laravel-todo-app-list-folders/`、`images/js-timer-tutorial-eguchi244/2.js-timer-design/`）
 
-Paste Image は章のファイル名（`images/5.laravel-todo-app-create-folder/`）へ保存しようとするので、**本のチャプターに画像を貼ったら `images/laravel-tutorial-books/` へ移動し、参照パスを書き換える。** そのまま放置すると既存の構成と分裂する。
+Paste Image は章のファイル名（`images/5.laravel-todo-app-create-folder/`）へ保存しようとするので、**本のチャプターに画像を貼ったら `images/<本の slug>/` の下へディレクトリごと移動し、参照パスを書き換える。** そのまま放置すると既存の構成と分裂する。
 
 参照例: `![](/images/sql-postresql-install-20230620/2023-06-20-15-03-17.png)`
 
