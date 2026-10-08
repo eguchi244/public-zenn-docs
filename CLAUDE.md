@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## このリポジトリについて
 
-Zenn（zenn.dev）のコンテンツを GitHub 連携で管理する執筆リポジトリ。コードベースではなく Markdown コンテンツが成果物で、ビルドもテストも無い。**`main` への push が Zenn への本番デプロイ**である点が最大の特徴。
+Zenn（zenn.dev）のコンテンツを GitHub 連携で管理する執筆リポジトリ。コードベースではなく Markdown コンテンツが成果物で、ビルドもテストも無い。**`main` への push が Zenn への本番デプロイ**である点が最大の特徴。**やりとり・ドキュメント・コミットメッセージはすべて日本語で書く。**
 
 構成は次の2記事に準拠している。判断に迷ったらここへ戻る:
 
