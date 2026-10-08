@@ -88,7 +88,7 @@ git branch -a && git status --short && git log --oneline -3
 |---|---|
 | `.claude/settings.local.json`（個人設定） | コミットしない。`.gitignore` 済み |
 | `plan/`（プランファイル） | コミットしない。`.gitignore` 済み |
-| `.mcp.json`、`.claude/settings.json`、`.claude/skills/`、`.claude/zenn-profile.md` | 共有資産としてコミットする |
+| `.mcp.json`、`.claude/settings.json`、`.claude/skills/`、`.claude/hooks/`、`.claude/zenn-profile.md` | 共有資産としてコミットする |
 | `images/` 配下の貼り付け画像 | 記事・本から参照されていればコミット。孤児画像はユーザーに確認する |
 | 記事・本そのもの（意図が読めないもの） | ユーザーに確認する |
 
