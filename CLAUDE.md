@@ -114,6 +114,8 @@ toc_depth: 3
 
 別リポジトリの教材を元に書く場合、教材リポジトリは Git submodule として参照する（ファイルを取り込まない）。最新化・コミットの手順は `.claude/skills/source-material/SKILL.md`。どの教材をどこに置いているかはプロファイルの「教材リポジトリ」を見る。
 
+章末に置く答え合わせ用のコードは、教材が非公開でも読者が開けるよう、アプリごとの公開リポジトリに章ブランチとして置く。作成・更新の手順は `.claude/skills/answer-repo/SKILL.md`。
+
 ## コミットしないもの
 
 `.gitignore` 済み: `node_modules`、`.DS_Store`、`.claude/settings.local.json`（個人設定）、`plan/`（`plansDirectory` 設定によりリポジトリ内に生成されるプランファイル）、`.claude/instruction_log.md` と `.claude/instruction_log.error.txt`（下記フックの出力）。

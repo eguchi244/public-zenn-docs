@@ -105,6 +105,8 @@ git submodule update --init   # 教材リポジトリを submodule で参照し�
 npx zenn preview     # エラーが出ないこと。確認したら停止する
 ```
 
+submodule を初期化したら、教材リポジトリの Claude Code 設定を展開しないよう sparse-checkout を設定する（手順と理由は `source-material` スキルの「教材リポジトリの Claude Code 設定を展開しない」）。
+
 `CLAUDE.md` 末尾の `@.claude/zenn-profile.md` が解決しているかは、Claude Code を起動して `/context` にプロファイル内の固有語が含まれるかで確認できる。
 
 ## 5. コミットする
