@@ -85,7 +85,7 @@ published: true # 公開に指定する
 本は2冊とも `cover.jpg`（500x700）がある。**新しい本の表紙は `laravel-tutorial-books/cover.jpg` のレイアウトに揃える**（`draft-to-publish` スキルの「表紙を作る」と `make_cover.py`）。
 
 - レイアウト: 黒地に、アクセント色の線（右の縦線・下部の横線2本・右下の縦線）。左上にタイトル、その下に下線、2行のサブタイトル、主題の技術のアイコンを2つ横に並べる
-- **アクセント色は本の主題の技術のブランドカラー**: Laravel入門は赤（Laravel）、JavaScript入門は黄色 `#F7DF1E`（JavaScript）
+- **アクセント色は本の主題の技術のブランドカラー**: Laravel入門は赤（Laravel）、JavaScript入門は黄色 `#F7DF1E`（JavaScript）。ブランドカラーが無い技術（SQL など）や、他の本と色が被る場合は見分けられる色を選ぶ（`private-zenn-docs` のプロファイルの「表紙」に下書きの本の色の一覧がある）
 - アイコンの実例: Laravel入門は Laravel と Docker のロゴ、JavaScript入門は JS ロゴとストップウォッチ（作るアプリを表す図柄）
 
 ## 画像ディレクトリの方針
