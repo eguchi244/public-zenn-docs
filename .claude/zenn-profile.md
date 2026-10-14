@@ -37,7 +37,7 @@
 
 - `articles/` に単発記事12本（`<slug>.md`）
 - `books/laravel-tutorial-books/`（Laravel入門 - Laravelを使ってみよう!）に `config.yaml` + `cover.jpg` + 全18章。ファイル名は `1.laravel-introduction.md` 〜 `18.laravel-todo-app-reference-article.md`
-- `books/js-timer-tutorial-eguchi244/`（JavaScript入門 - タイマーアプリを作ってみよう!）に `config.yaml` + 全5章（2026-10-08 公開）。`private-zenn-docs` で下書きし、教材は `private-study-dev` の `01_js_timer`。答え合わせ用は `eguchi244/JS-Timer-Tutorial-PJ`。`config.yaml` に `chapters:` は無い（0.1 系でもファイル名順に並ぶことを preview で確認済み）
+- `books/js-timer-tutorial-eguchi244/`（JavaScript入門 - タイマーアプリを作ってみよう!）に `config.yaml` + `cover.jpg` + 全5章（2026-10-08 公開、表紙は 2026-10-15 に追加）。`private-zenn-docs` で下書きし、教材は `private-study-dev` の `01_js_timer`。答え合わせ用は `eguchi244/JS-Timer-Tutorial-PJ`。`config.yaml` に `chapters:` は無い（0.1 系でもファイル名順に並ぶことを preview で確認済み）
 
 一覧が必要なときは `ls articles books/*/` で見る。
 
@@ -79,6 +79,14 @@ published: true # 公開に指定する
 ### Zenn 記法
 
 `:::message`（補足・注意）と `:::details`（長いコードや出力の折りたたみ）を多用している。
+
+## 表紙
+
+本は2冊とも `cover.jpg`（500x700）がある。**新しい本の表紙は `laravel-tutorial-books/cover.jpg` のレイアウトに揃える**（`draft-to-publish` スキルの「表紙を作る」と `make_cover.py`）。
+
+- レイアウト: 黒地に、アクセント色の線（右の縦線・下部の横線2本・右下の縦線）。左上にタイトル、その下に下線、2行のサブタイトル、主題の技術のアイコンを2つ横に並べる
+- **アクセント色は本の主題の技術のブランドカラー**: Laravel入門は赤（Laravel）、JavaScript入門は黄色 `#F7DF1E`（JavaScript）
+- アイコンの実例: Laravel入門は Laravel と Docker のロゴ、JavaScript入門は JS ロゴとストップウォッチ（作るアプリを表す図柄）
 
 ## 画像ディレクトリの方針
 
