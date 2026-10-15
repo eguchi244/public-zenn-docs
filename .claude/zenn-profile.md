@@ -12,7 +12,7 @@
 
 ## 公開状態
 
-**記事12本・本2冊すべて `published: true`。つまり `main` への push は即座に公開内容へ反映される。**
+**記事13本・本2冊すべて `published: true`。つまり `main` への push は即座に公開内容へ反映される。**
 
 - 下書きのつもりの変更を `main` に入れない
 - マージ前に `npx zenn preview` で最終確認する
@@ -30,12 +30,13 @@
 | ここ | 原本（private-zenn-docs） |
 |---|---|
 | `books/js-timer-tutorial-eguchi244/` | `books/js-timer-tutorial-eguchi244-draft/` |
+| `articles/python-vscode-windows-setup-20261015.md` | `articles/python-vscode-windows-setup-20261015-draft.md`（公開済みスクラップから `scrap-import` で取り込み） |
 
 それ以外（既存の記事12本と `laravel-tutorial-books`）は原本を持たず、ここで直接管理している。
 
 ## コンテンツ
 
-- `articles/` に単発記事12本（`<slug>.md`）
+- `articles/` に単発記事13本（`<slug>.md`）
 - `books/laravel-tutorial-books/`（Laravel入門 - Laravelを使ってみよう!）に `config.yaml` + `cover.jpg` + 全18章。ファイル名は `1.laravel-introduction.md` 〜 `18.laravel-todo-app-reference-article.md`
 - `books/js-timer-tutorial-eguchi244/`（JavaScript入門 - タイマーアプリを作ってみよう!）に `config.yaml` + `cover.jpg` + 全5章（2026-10-08 公開、表紙は 2026-10-15 に追加）。`private-zenn-docs` で下書きし、教材は `private-study-dev` の `01_js_timer`。答え合わせ用は `eguchi244/JS-Timer-Tutorial-PJ`。`config.yaml` に `chapters:` は無い（0.1 系でもファイル名順に並ぶことを preview で確認済み）
 
@@ -51,7 +52,7 @@
 
 ### 記事
 
-frontmatter は12本すべてコメント付きで統一している:
+frontmatter は13本すべてコメント付きで統一している:
 
 ```yaml
 ---
