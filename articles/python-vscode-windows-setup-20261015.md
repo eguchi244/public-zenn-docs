@@ -48,6 +48,11 @@ https://www.python.org/downloads/
 
 ### ②インストーラーを実行する
 ダウンロードしたインストーラーをダブルクリックもしくは右クリックから実行でインストールします。
+
+:::message
+画像は Python 3.12.1 のインストーラーの画面です。3.12.10 でも手順は同じです。
+:::
+
 ![](/images/python-vscode-windows-setup-20261015/2026-04-16-20-55-17.png =500x)
 
 下の「Add python.exe to PATH」にチェックを入れてから、【Install Now】をクリックする。
@@ -74,12 +79,12 @@ python
 ```
 
 ```text:実行結果
-Python 3.12.1 (tags/v3.12.1:2305ca5, Dec  7 2023, 22:03:25) [MSC v.1937 64 bit (AMD64)] on win32
+Python 3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)] on win32
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ```
 
-上記の例のように、「Python 3.12.1 ...」みたいなのが表示されて、>>>（入力待ち状態）になったらOKです。
+上記の例のように、「Python 3.12.10 ...」みたいなのが表示されて、>>>（入力待ち状態）になったらOKです。
 
 適当にプログラムに計算させてみましょう！
 
@@ -199,10 +204,11 @@ pip install numpy
 
 ```text:実行結果
 Collecting numpy
-  Downloading numpy-1.24.2-cp311-cp311-win_amd64.whl (14.8 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.8/14.8 MB 930.8 kB/s eta 0:00:00
+  Downloading numpy-2.5.4-cp312-cp312-win_amd64.whl.metadata (6.6 kB)
+Downloading numpy-2.5.4-cp312-cp312-win_amd64.whl (12.6 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 12.6/12.6 MB 20.7 MB/s eta 0:00:00
 Installing collected packages: numpy
-Successfully installed numpy-1.24.2
+Successfully installed numpy-2.5.4
 ```
 
 ### ②Numpyの動作確認をする
