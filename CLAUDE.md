@@ -128,7 +128,7 @@ toc_depth: 3
 
 ## フック
 
-`.claude/settings.json` の `SessionEnd` が `.claude/hooks/save_instruction_log.ps1` を呼び、そのセッションでユーザーが出した指示を `.claude/instruction_log.md` へ追記する。**スクリプトは共有資産、出力ログは各自の手元に残すもの**なので、前者だけをコミットする。
+`.claude/settings.json` の `SessionEnd` が `.claude/hooks/save_instruction_log.ps1` を呼び、そのセッションでユーザーが出した指示を `.claude/instruction_log.md` へ追記する。**スクリプトは共有資産、出力ログは各自の手元に残すもの**なので、前者だけをコミットする。スクリプトは記録のあと、出力ログが Git の追跡対象であれば commit-flow と同じ流れで自動コミットするが、このリポジトリでは `.gitignore` 済みなので記録のみで終わる。
 
 フックの登録内容を変えたら、**新しいセッションを開始しないと反映されない**（起動時にスナップショットされる）。`/hooks` で現在の登録を確認できる。
 

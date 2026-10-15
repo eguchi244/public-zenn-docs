@@ -24,7 +24,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/save_instruction_log.ps1\""
+            "command": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks/save_instruction_log.ps1\"",
+            "timeout": 60,
+            "statusMessage": "指示履歴を記録・コミットしています"
           }
         ]
       }
