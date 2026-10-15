@@ -1,0 +1,12 @@
+title: "FastAPI入門 - タスク管理APIを作ってみよう!"
+summary: "
+  Python の Web フレームワーク FastAPI で、タスクの作成・取得・更新・削除ができる REST API を作る書籍です。
+
+  ルーティング、Pydantic による入力チェック、部分更新、Depends による依存性注入、SQLAlchemy と SQLite によるデータ保存まで、4つのフェーズに分けて段階的に完成させます。まずはリストでデータを持って API の形を作り、最後にデータベースへ差し替えます。
+
+  動作確認は FastAPI が自動で用意する Swagger UI で行うので、画面を作らずに API だけに集中できます。各章の末尾に答え合わせ用のソースコードを掲載しています。
+  " # 本の紹介文
+topics: ["Python", "FastAPI", "SQLAlchemy", "SQLite", "初心者"] # タグ
+published: true # 公開設定
+price: 0 # 有料の場合200〜5000
+toc_depth: 3 # 目次設定0~3で指定
