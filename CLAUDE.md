@@ -116,6 +116,8 @@ toc_depth: 3
 
 教材リポジトリにある画像（スクリーンショット・図）を記事・本へ取り込む手順は `.claude/skills/material-images/SKILL.md`（Zenn の命名規約での取り込み → 原本に差し込み → 同期して公開）。
 
+公開済みの Zenn スクラップを素材にして記事・本を作る場合は `.claude/skills/scrap-import/SKILL.md`（API から取得して Markdown と画像に戻す → 画像の置き換え → 原本にして `draft-to-publish` に合流）。スクラップは GitHub 連携の対象外なので、元スクラップの削除・クローズは Zenn の画面で行う。
+
 章末に置く答え合わせ用のコードは、教材が非公開でも読者が開けるよう、アプリごとの公開リポジトリに章ブランチとして置く。作成・更新の手順は `.claude/skills/answer-repo/SKILL.md`。
 
 ## コミットしないもの
