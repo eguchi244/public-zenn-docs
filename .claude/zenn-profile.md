@@ -12,7 +12,7 @@
 
 ## 公開状態
 
-**記事13本・本2冊すべて `published: true`。つまり `main` への push は即座に公開内容へ反映される。**
+**記事13本・本4冊すべて `published: true`。つまり `main` への push は即座に公開内容へ反映される。**
 
 - 下書きのつもりの変更を `main` に入れない
 - マージ前に `npx zenn preview` で最終確認する
@@ -31,6 +31,8 @@
 |---|---|
 | `books/js-timer-tutorial-eguchi244/` | `books/js-timer-tutorial-eguchi244-draft/` |
 | `articles/python-vscode-windows-setup-20261015.md` | `articles/python-vscode-windows-setup-20261015-draft.md`（公開済みスクラップから `scrap-import` で取り込み） |
+| `books/js-task-tutorial-eguchi244/` | `books/js-task-tutorial-eguchi244-draft/` |
+| `books/fastapi-task-tutorial-eguchi244/` | `books/fastapi-task-tutorial-eguchi244-draft/` |
 
 それ以外（既存の記事12本と `laravel-tutorial-books`）は原本を持たず、ここで直接管理している。
 
@@ -39,6 +41,8 @@
 - `articles/` に単発記事13本（`<slug>.md`）
 - `books/laravel-tutorial-books/`（Laravel入門 - Laravelを使ってみよう!）に `config.yaml` + `cover.jpg` + 全18章。ファイル名は `1.laravel-introduction.md` 〜 `18.laravel-todo-app-reference-article.md`
 - `books/js-timer-tutorial-eguchi244/`（JavaScript入門 - タイマーアプリを作ってみよう!）に `config.yaml` + `cover.jpg` + 全5章（2026-10-08 公開、表紙は 2026-10-15 に追加）。`private-zenn-docs` で下書きし、教材は `private-study-dev` の `01_js_timer`。答え合わせ用は `eguchi244/JS-Timer-Tutorial-PJ`。`config.yaml` に `chapters:` は無い（0.1 系でもファイル名順に並ぶことを preview で確認済み）
+- `books/js-task-tutorial-eguchi244/`（JavaScript入門 - タスク管理アプリを作ってみよう!）に `config.yaml` + `cover.jpg` + 全6章（2026-10-15 公開）。教材は `private-study-dev` の `02_js_task`、答え合わせ用は `eguchi244/JS-Task-Tutorial-PJ`
+- `books/fastapi-task-tutorial-eguchi244/`（FastAPI入門 - タスク管理APIを作ってみよう!）に `config.yaml` + `cover.jpg` + 全6章（2026-10-15 公開）。教材は `private-study-dev` の `05_fastapi_task`、答え合わせ用は `eguchi244/FastAPI-Task-Tutorial-PJ`
 
 一覧が必要なときは `ls articles books/*/` で見る。
 
@@ -83,10 +87,10 @@ published: true # 公開に指定する
 
 ## 表紙
 
-本は2冊とも `cover.jpg`（500x700）がある。**新しい本の表紙は `laravel-tutorial-books/cover.jpg` のレイアウトに揃える**（`draft-to-publish` スキルの「表紙を作る」と `make_cover.py`）。
+本は4冊とも `cover.jpg`（500x700）がある。**新しい本の表紙は `laravel-tutorial-books/cover.jpg` のレイアウトに揃える**（`draft-to-publish` スキルの「表紙を作る」と `make_cover.py`）。
 
 - レイアウト: 黒地に、アクセント色の線（右の縦線・下部の横線2本・右下の縦線）。左上にタイトル、その下に下線、2行のサブタイトル、主題の技術のアイコンを2つ横に並べる
-- **アクセント色は本の主題の技術のブランドカラー**: Laravel入門は赤（Laravel）、JavaScript入門は黄色 `#F7DF1E`（JavaScript）。ブランドカラーが無い技術（SQL など）や、他の本と色が被る場合は見分けられる色を選ぶ（`private-zenn-docs` のプロファイルの「表紙」に下書きの本の色の一覧がある）
+- **アクセント色は本の主題の技術のブランドカラー**: Laravel入門は赤（Laravel）、JavaScript入門（タイマー）は黄色 `#F7DF1E`（JavaScript）、JavaScript入門（タスク管理）はタイマーと区別するため紫 `#A371F7`、FastAPI入門はティール `#009688`（FastAPI）。ブランドカラーが無い技術（SQL など）や、他の本と色が被る場合は見分けられる色を選ぶ（`private-zenn-docs` のプロファイルの「表紙」に下書きの本の色の一覧がある）
 - アイコンの実例: Laravel入門は Laravel と Docker のロゴ、JavaScript入門は JS ロゴとストップウォッチ（作るアプリを表す図柄）
 
 ## 画像ディレクトリの方針
