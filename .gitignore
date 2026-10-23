@@ -4,3 +4,8 @@ node_modules
 plan/
 .claude/instruction_log.md
 .claude/instruction_log.error.txt
+
+# Claude 関連ファイル（公開リポジトリのため管理しない。原本は private-zenn-docs）
+CLAUDE.md
+.mcp.json
+.claude/
