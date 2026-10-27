@@ -1,0 +1,12 @@
+title: "JavaScript×FastAPI入門 - タスク管理アプリをAPIとつないでみよう!"
+summary: "
+  素の JavaScript（Vanilla JS）で作ったタスク管理アプリと、FastAPI で作ったタスク管理 API をつなぎ、ブラウザとサーバーが JSON でやりとりするアプリに仕上げる書籍です。
+
+  データの保存先を localStorage から API サーバーへ移し、CORS（別オリジン通信の許可）、fetch と async/await による GET / POST / PUT / DELETE、書き込んだら一覧を取り直す同期の考え方、ローディング表示とエラー表示まで、4つのフェーズに分けて段階的に完成させます。
+
+  出発点のコードは公開リポジトリから取得できるので、前作を読んでいなくても始められます。各章の末尾に答え合わせ用のソースコードを掲載しています。
+  " # 本の紹介文
+topics: ["JavaScript", "FastAPI", "CORS", "fetch", "初心者"] # タグ
+published: true # 公開設定
+price: 0 # 有料の場合200〜5000
+toc_depth: 3 # 目次設定0~3で指定
